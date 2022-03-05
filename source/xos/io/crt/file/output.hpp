@@ -30,7 +30,8 @@ namespace file {
 
 /// class outputt
 template 
-<typename TFile = FILE*, class TExtendsOutput = io::extended::output, 
+<typename TFile = FILE*, 
+ class TExtendsOutput = io::extended::output, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 
 class exported outputt: virtual public TImplements, public TExtends {
@@ -40,7 +41,6 @@ public:
     typedef outputt derives; 
     
     typedef TFile file_t;
-    typedef typename extends::output_t output_t;
     typedef typename implements::string_t string_t;
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;

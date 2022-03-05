@@ -42,6 +42,7 @@ public:
     typedef TExtends extends;
     typedef outputt derives; 
     
+    typedef typename extends::output_to_t output_to_t;
     typedef typename implements::string_t string_t;
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;

@@ -555,7 +555,7 @@ typedef outputt<> output;
 namespace forwarded {
 /// class outputt
 template 
-<class TExtendsOutput = extended::output, 
+<class TExtendsOutput = io::extended::output, class TOutputTo = io::output, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 
 class exported outputt: virtual public TImplements, public TExtends {
@@ -564,7 +564,7 @@ public:
     typedef TExtends extends;
     typedef outputt derives; 
     
-    typedef typename extends::output_t output_t;
+    typedef TOutputTo output_to_t;
     typedef typename implements::string_t string_t;
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;
@@ -576,7 +576,7 @@ public:
     /// constructors / destructor
     outputt(const outputt& copy): output_to_(0) {
     }
-    outputt(output_t* output_to): output_to_(output_to) {
+    outputt(output_to_t* output_to): output_to_(output_to) {
     }
     outputt(): output_to_(0) {
     }
@@ -586,7 +586,7 @@ public:
     /// out...
     virtual ssize_t outsfv(char_t *string, size_t size, const sized_t *format, va_list va) {
         ssize_t count = 0;
-        output_t* output_to = 0;
+        output_to_t* output_to = 0;
         if ((output_to = this->output_to())) {
             count = output_to->outsfv(string, size, format, va);
         } else {
@@ -596,7 +596,7 @@ public:
     }
     virtual ssize_t outfv(const sized_t *format, va_list va) {
         ssize_t count = 0;
-        output_t* output_to = 0;
+        output_to_t* output_to = 0;
         if ((output_to = this->output_to())) {
             count = output_to->outfv(format, va);
         } else {
@@ -607,7 +607,7 @@ public:
     using implements::out;
     virtual ssize_t out(const what_t *what, size_t length) {
         ssize_t count = 0;
-        output_t* output_to = 0;
+        output_to_t* output_to = 0;
         if ((output_to = this->output_to())) {
             count = output_to->out(what, length);
         } else {
@@ -617,7 +617,7 @@ public:
     }
     virtual ssize_t out_flush() {
         ssize_t count = 0;
-        output_t* output_to = 0;
+        output_to_t* output_to = 0;
         if ((output_to = this->output_to())) {
             count = output_to->out_flush();
         } else {
@@ -627,18 +627,18 @@ public:
     }
 
     /// ...output_to
-    virtual output_t* set_output_to(output_t* to) {
-        output_t *&output_to = this->output_to(), *old_output_to = output_to;
+    virtual output_to_t* set_output_to(output_to_t* to) {
+        output_to_t *&output_to = this->output_to(), *old_output_to = output_to;
         output_to = to;
         return old_output_to;
     }
 protected:
-    virtual output_t*& output_to() const {
-        return (output_t*&)output_to_;
+    virtual output_to_t*& output_to() const {
+        return (output_to_t*&)output_to_;
     }
 
 protected:
-    output_t* output_to_;
+    output_to_t* output_to_;
 }; /// class outputt
 typedef outputt<> output;
 } /// namespace forwarded

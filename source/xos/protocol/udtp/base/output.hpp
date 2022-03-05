@@ -21,7 +21,7 @@
 #ifndef XOS_PROTOCOL_UDTP_BASE_OUTPUT_HPP
 #define XOS_PROTOCOL_UDTP_BASE_OUTPUT_HPP
 
-#include "xos/crypto/output.hpp"
+#include "xos/io/crypto/output.hpp"
 
 #include "xos/protocol/tls/protocol/version.hpp"
 
@@ -88,7 +88,7 @@ namespace base {
 
 /// class outputt
 template 
-<class TExtendsOutput = xos::crypto::output, 
+<class TExtendsOutput = xos::io::crypto::output, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 
 class exported outputt: virtual public TImplements, public TExtends {
@@ -97,6 +97,7 @@ public:
     typedef TExtends extends;
     typedef outputt derives; 
     
+    typedef typename extends::output_to_t output_to_t;
     typedef typename implements::string_t string_t;
     typedef typename implements::char_t char_t;
     typedef typename implements::end_char_t end_char_t;

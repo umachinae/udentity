@@ -48,7 +48,7 @@ public:
     typedef char_t sized_t;
 
     /// constructors / destructor
-    outputt(const outputt& copy): extends(copy) {
+    outputt(const outputt& copy) {
     }
     outputt(string_t& string): string_(string) {
     }
