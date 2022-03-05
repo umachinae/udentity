@@ -13,48 +13,48 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udty.pri
+#   File: udfy.pri
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 3/5/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udty
+# generic QtCreator project .pri file for framework udentity executable udfy
 ########################################################################
 
 ########################################################################
-# udty
+# udfy
 
-# udty TARGET
+# udfy TARGET
 #
-udty_TARGET = udty
+udfy_TARGET = udfy
 
-# udty INCLUDEPATH
+# udfy INCLUDEPATH
 #
-udty_INCLUDEPATH += \
+udfy_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udty DEFINES
+# udfy DEFINES
 #
-udty_DEFINES += \
+udfy_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udty OBJECTIVE_HEADERS
+# udfy OBJECTIVE_HEADERS
 #
-#udty_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udty/main.hh \
+#udfy_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/udfy/main.hh \
 
-# udty OBJECTIVE_SOURCES
+# udfy OBJECTIVE_SOURCES
 #
-#udty_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udty/main.mm \
+#udfy_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/udfy/main.mm \
 
 ########################################################################
-# udty HEADERS
+# udfy HEADERS
 #
-udty_HEADERS += \
+udfy_HEADERS += \
 $${UDENTITY_SRC}/xos/io/output.hpp \
 $${UDENTITY_SRC}/xos/io/string/output.hpp \
 $${UDENTITY_SRC}/xos/io/crt/file/output.hpp \
@@ -76,28 +76,29 @@ $${UDENTITY_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.hpp \
 \
-$${UDENTITY_SRC}/xos/app/console/udty/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/udty/main.hpp \
+$${UDENTITY_SRC}/xos/app/console/udfy/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/udfy/main.hpp \
 
-# udty SOURCES
+# udfy SOURCES
 #
-udty_SOURCES += \
+udfy_SOURCES += \
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.cpp \
 \
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.cpp \
+$${UDENTITY_SRC}/xos/app/console/udfy/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/udfy/main.cpp \
 
 ########################################################################
-# udty FRAMEWORKS
+# udfy FRAMEWORKS
 #
-udty_FRAMEWORKS += \
+udfy_FRAMEWORKS += \
 $${udentity_FRAMEWORKS} \
 
-# udty LIBS
+# udfy LIBS
 #
-udty_LIBS += \
+udfy_LIBS += \
 $${udentity_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
 QT -= gui core
+
