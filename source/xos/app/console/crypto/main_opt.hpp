@@ -220,6 +220,26 @@ protected:
         return err;
     }
 
+    /// ...on_set_hex_literal_array
+    virtual int on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output();
+        output.on_set_hex_literal_array(arrays, literal);
+        return err;
+    }
+    virtual int set_on_set_hex_string_literal_array(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output();
+        output.set_on_set_hex_string_literal_array();
+        return err;
+    }
+    virtual int set_on_set_hex_file_literal_array(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output();
+        output.set_on_set_hex_file_literal_array();
+        return err;
+    }
+
     /// ...on_set_hex_literals
     virtual int on_set_hex_literals
     (::talas::io::hex::read_to_byte_arrays &to_arrays, 
@@ -304,8 +324,10 @@ protected:
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         if (!(err = set_on_set_hex_file_literal(argc, argv, env))) {
-            if (!(err = set_on_set_hex_file_literals(argc, argv, env))) {
-                if (!(err = set_on_set_text_file_literal(argc, argv, env))) {
+            if (!(err = set_on_set_hex_file_literal_array(argc, argv, env))) {
+                if (!(err = set_on_set_hex_file_literals(argc, argv, env))) {
+                    if (!(err = set_on_set_text_file_literal(argc, argv, env))) {
+                    }
                 }
             }
         }
@@ -321,8 +343,10 @@ protected:
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         if (!(err = set_on_set_hex_string_literal(argc, argv, env))) {
-            if (!(err = set_on_set_hex_string_literals(argc, argv, env))) {
-                if (!(err = set_on_set_text_string_literal(argc, argv, env))) {
+            if (!(err = set_on_set_hex_string_literal_array(argc, argv, env))) {
+                if (!(err = set_on_set_hex_string_literals(argc, argv, env))) {
+                    if (!(err = set_on_set_text_string_literal(argc, argv, env))) {
+                    }
                 }
             }
         }

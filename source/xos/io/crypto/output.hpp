@@ -170,6 +170,79 @@ public:
         return err;
     }
 
+    /// on_set_hex_..._literal_array
+    int (derives::*on_set_hex_literal_array_)(::talas::byte_arrays_t &arrays, ::talas::string_t &literal);
+    virtual int on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+        int err = 0;
+        if (on_set_hex_literal_array_) {
+            err = (this->*on_set_hex_literal_array_)(arrays, literal);
+        } else {
+            err = default_on_set_hex_literal_array(arrays, literal);
+        }
+        return err;
+    }
+    virtual int default_on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+        int err = 0;
+        err = on_set_hex_string_literal_array(arrays, literal);
+        return err;
+    }
+    virtual int on_set_hex_string_literal_array
+    (::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+        int err = 0;
+        size_t length = 0;
+        const char_t* chars = 0;
+
+        if ((chars = literal.has_chars(length))) {
+            ssize_t count = 0;
+            ::talas::io::string::reader reader(literal);
+            ::talas::io::hex::read_to_byte_arrays to_arrays(arrays);
+            ::talas::io::hex::reader hex(to_arrays, reader);
+
+            if (0 >= (count = hex.read())) {
+                err = on_failed_set_hex_literal_array(arrays, literal);
+            }
+        }
+        return err;
+    }
+    virtual int on_set_hex_file_literal_array
+    (::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+        int err = 0;
+        size_t length = 0;
+        const char_t* chars = 0;
+
+        if ((chars = literal.has_chars(length))) {
+            ::talas::io::read::char_file file;
+
+            this->errlln("file.open(\"", chars, "\")...", null);
+            if ((file.open(chars))) {
+                ssize_t count = 0;
+                ::talas::io::hex::read_to_byte_arrays to_arrays(arrays);
+                ::talas::io::hex::reader hex(to_arrays, file);
+    
+                if (0 >= (count = hex.read())) {
+                    err = on_failed_set_hex_literal_array(arrays, literal);
+                }
+                this->errlln("...file.close(\"", chars, "\")...", null);
+                file.close();
+            }
+        }
+        return err;
+    }
+    virtual int on_failed_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+        int err = 0;
+        return err;
+    }
+    virtual int set_on_set_hex_string_literal_array() {
+        int err = 0;
+        on_set_hex_literal_array_ = &derives::on_set_hex_string_literal_array;
+        return err;
+    }
+    virtual int set_on_set_hex_file_literal_array() {
+        int err = 0;
+        on_set_hex_literal_array_ = &derives::on_set_hex_file_literal_array;
+        return err;
+    }
+
     /// ...on_set_hex_literals
     int (derives::*on_set_hex_literals_)
     (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal);
