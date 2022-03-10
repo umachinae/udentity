@@ -55,14 +55,22 @@ XOS_CONSOLE_MAIN_MAIN \
 # udty HEADERS
 #
 udty_HEADERS += \
+$${UDENTITY_SRC}/talas/base/array.hpp \
+$${UDENTITY_SRC}/talas/io/hex/read_to_arrays.hpp \
+\
 $${UDENTITY_SRC}/xos/io/output.hpp \
 $${UDENTITY_SRC}/xos/io/string/output.hpp \
 $${UDENTITY_SRC}/xos/io/crt/file/output.hpp \
 $${UDENTITY_SRC}/xos/io/console/output.hpp \
 $${UDENTITY_SRC}/xos/io/crypto/output.hpp \
 \
+$${UDENTITY_SRC}/xos/protocol/tls/plaintext.hpp \
+$${UDENTITY_SRC}/xos/protocol/tls/handshake/message.hpp \
+\
 $${UDENTITY_SRC}/xos/protocol/udtp/base/output.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.hpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/client/hello/messages.hpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/server/output.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udentity/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/udentity/main.hpp \
@@ -76,16 +84,27 @@ $${UDENTITY_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.hpp \
 \
-$${UDENTITY_SRC}/xos/app/console/udty/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/udty/main.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.hpp \
+\
+$${UDENTITY_SRC}/xos/app/console/udfy/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/udfy/main.hpp \
+
 
 # udty SOURCES
 #
 udty_SOURCES += \
-$${UDENTITY_SRC}/xos/protocol/udtp/client/output.cpp \
+$${UDENTITY_SRC}/talas/base/array.cpp \
+$${UDENTITY_SRC}/talas/io/hex/read_to_arrays.cpp \
 \
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.cpp \
+$${UDENTITY_SRC}/xos/protocol/tls/plaintext.cpp \
+$${UDENTITY_SRC}/xos/protocol/tls/handshake/message.cpp \
+\
+$${UDENTITY_SRC}/xos/protocol/udtp/client/hello/messages.cpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/server/output.cpp \
+\
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.cpp \
 
 ########################################################################
 # udty FRAMEWORKS

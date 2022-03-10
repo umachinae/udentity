@@ -55,6 +55,8 @@ XOS_CONSOLE_MAIN_MAIN \
 # udfy HEADERS
 #
 udfy_HEADERS += \
+$${UDENTITY_SRC}/talas/io/hex/read_to_arrays.hpp \
+\
 $${UDENTITY_SRC}/xos/io/output.hpp \
 $${UDENTITY_SRC}/xos/io/string/output.hpp \
 $${UDENTITY_SRC}/xos/io/crt/file/output.hpp \
@@ -82,6 +84,8 @@ $${UDENTITY_SRC}/xos/app/console/udfy/main.hpp \
 # udfy SOURCES
 #
 udfy_SOURCES += \
+$${UDENTITY_SRC}/talas/io/hex/read_to_arrays.cpp \
+\
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.cpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udfy/main_opt.cpp \
