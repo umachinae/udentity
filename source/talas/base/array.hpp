@@ -62,6 +62,7 @@ public:
     arrayt() {
     }
     virtual ~arrayt() {
+        this->clear();
     }
 
     /// plaintext

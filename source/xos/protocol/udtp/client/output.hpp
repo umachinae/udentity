@@ -415,6 +415,20 @@ public:
         return err;
     }
 
+    /// ...option...
+    virtual int on_set_client_hello_message_option(const char_t* optarg) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            const byte_t* bytes = 0; size_t length = 0;
+            literal_string_.assign(optarg);
+            this->on_set_text_literal(literal_, literal_string_);
+            if ((bytes = literal_.has_elements(length))) {
+                client_plain_text_.assign(((const char_t*)bytes), length);
+            }
+        }
+        return err;
+    }
+
     /// ...text
     virtual const char_t* client_plain_text_chars(size_t& length) const {
         const ::talas::string_t& client_plain_text = this->client_plain_text();
@@ -435,8 +449,8 @@ public:
 
 protected:
     size_t client_cipher_text_size_;
-    ::talas::string_t client_plain_text_;
-    ::talas::byte_array_t client_cipher_text_;
+    ::talas::string_t client_plain_text_, literal_string_;
+    ::talas::byte_array_t client_cipher_text_, literal_;
 }; /// class outputt
 typedef outputt<> output;
 

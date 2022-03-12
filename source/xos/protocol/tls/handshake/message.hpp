@@ -73,7 +73,7 @@ template
  class TClientHello = tls::client::hello,
  TType VTypeClientKeyExchange = tls::handshake::type::client_key_exchange, 
  class TClientKeyExchange = tls::client::key::exchange::message,
- typename TUInt24 = tls::uint24, class TRandomReader = tls::pseudo::random::reader,
+ typename TLength = tls::uint24, class TRandomReader = tls::pseudo::random::reader,
  class TMessagePart = tls::message::part, class TExtends = TMessagePart, class TImplements = typename TExtends::implements>
 
 class exported messaget: virtual public TImplements, public TExtends {
@@ -83,8 +83,8 @@ public:
     typedef messaget derives; 
     
     typedef TRandomReader random_reader_t;
-    typedef TMessagePart message_part_t;
-    typedef TUInt24 uint24_t;
+    typedef TMessagePart content_t;
+    typedef TLength length_t;
     typedef TType type_t;
     enum { 
         type_none = VTypeNone, 
@@ -113,6 +113,7 @@ public:
         combine();
     }
     virtual ~messaget() {
+        this->clear();
     }
     
     /// combine / separate
@@ -147,46 +148,53 @@ public:
         }
         return success;
     }
-    virtual bool separate() {
+    virtual bool separate(size_t& count, const byte_t *bytes, size_t length) {
         bool success = false;
+        size_t size_of_type = sizeof(type_t), 
+               size_of_length = length_t::size_of;
+        
+        count = 0;
+        if ((bytes) && ((size_of_type + size_of_length) < length)) {
+            type_t _type = type_none;
+            length_t _length = 0;
+            size_t amount = 0;
+            
+            if (size_of_type == (amount = this->from_msb(_type, bytes, length))) {
+                count += amount;
+                bytes += amount;
+                length -= amount;
+
+                if ((_length.separate(amount, bytes, length)) && (size_of_length == (amount))) {
+                    count += amount;
+                    bytes += amount;
+                    length -= amount;
+                    type_ = _type;
+                    length_ = _length;
+                    content_.assign(bytes, length);
+                    success = true;
+                }
+            }
+        }
         return success;
+    }
+
+    /// ...of
+    virtual type_t& type_of() const {
+        return (type_t&)type_;
+    }
+    virtual length_t& length_of() const {
+        return (length_t&)length_;
+    }
+    virtual content_t& content_of() const {
+        return (content_t&)content_;
     }
 
 protected:
     type_t type_;
-    uint24_t length_;
+    length_t length_;
+    content_t content_;
 }; /// class messaget
-
-typedef messaget<> messageExtends;
-typedef messageExtends::implements messageImplements;
-/// class message
-class exported message: virtual public messageImplements, public messageExtends {
-public:
-    typedef messageImplements implements;
-    typedef messageExtends extends;
-    typedef message derives; 
-    
-    typedef derives handshake_message_t;
-    typedef typename extends::client_hello_t client_hello_t;
-    typedef typename extends::client_key_exchange_t client_key_exchange_t;
-    
-    /// constructors / destructor
-    message(const client_hello_t& client_hello): extends(client_hello) {
-    }
-    message(const client_key_exchange_t& client_key_exchange): extends(client_key_exchange) {
-    }
-    message(const message& copy): extends(copy) {
-    }
-    message() {
-    }
-    virtual ~message() {
-    }
-
-    /// is_handshake_message
-    virtual handshake_message_t* is_handshake_message() const {
-        return (handshake_message_t*)this;
-    }
-}; /// class message
+typedef messaget<> message;
 
 } /// namespace handshake
 } /// namespace tls
