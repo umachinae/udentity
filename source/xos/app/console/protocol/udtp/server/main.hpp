@@ -85,6 +85,12 @@ protected:
         output.output_client_hello_messages();
         return err;
     }
+    virtual int output_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_server_hello_message();
+        return err;
+    }
 
     /// ...option...
     virtual int on_set_client_hello_message_option
@@ -94,6 +100,14 @@ protected:
         output.on_set_client_hello_message_option(optarg);
         return err;
     }
+    virtual int on_set_server_hello_message_option
+    (const char_t* optarg, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        output_t& output = this->output();
+        output.on_set_server_hello_message_option(optarg);
+        return err;
+    }
+
 protected:
 }; /// class maint
 typedef maint<> main;

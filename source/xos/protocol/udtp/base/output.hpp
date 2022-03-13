@@ -81,9 +81,14 @@
 #include "xos/protocol/tls/master/secret/seed.hpp"
 #include "xos/protocol/tls/key/expansion/seed.hpp"
 
+#define XOS_PROTOCOL_UDTP_CIPHER_TEXT_SIZE 1024*8
+
 namespace xos {
 namespace protocol {
 namespace udtp {
+
+enum { cipher_text_size = XOS_PROTOCOL_UDTP_CIPHER_TEXT_SIZE };
+
 namespace base {
 
 /// class outputt
@@ -107,10 +112,14 @@ public:
     typedef char_t sized_t;
 
     /// constructors / destructor
-    outputt(const outputt& copy): extends(copy) {
+private:
+    outputt(const outputt& copy) {
+        throw exception(exception_unexpected);
     }
+public:
     outputt()
     : protocol_version_which_(xos::protocol::tls::protocol::version::which),
+      protocol_version_(protocol_version_which_),
       cipher_suite_which_(xos::protocol::tls::cipher::suite::which),
       cipher_suite_with_(xos::protocol::tls::cipher::suite::with),
       compression_method_which_(xos::protocol::tls::compression::method::which),
@@ -373,6 +382,9 @@ public:
     virtual xos::protocol::tls::protocol::version::which_t& protocol_version_which() const {
         return (xos::protocol::tls::protocol::version::which_t&)protocol_version_which_;
     }
+    virtual xos::protocol::tls::protocol::version& protocol_version() const {
+        return (xos::protocol::tls::protocol::version&)protocol_version_;
+    }
     virtual xos::protocol::tls::cipher::suite::which_t& cipher_suite_which() const {
         return (xos::protocol::tls::cipher::suite::which_t&)cipher_suite_which_;
     }
@@ -615,6 +627,7 @@ public:
 
 protected:
     xos::protocol::tls::protocol::version::which_t protocol_version_which_;
+    xos::protocol::tls::protocol::version protocol_version_;
     xos::protocol::tls::cipher::suite::which_t cipher_suite_which_;
     xos::protocol::tls::cipher::suite::with_t cipher_suite_with_;
     xos::protocol::tls::compression::method::which_t compression_method_which_;

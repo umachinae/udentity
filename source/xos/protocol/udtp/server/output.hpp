@@ -22,7 +22,7 @@
 #define XOS_PROTOCOL_UDTP_SERVER_OUTPUT_HPP
 
 #include "xos/protocol/udtp/base/output.hpp"
-#include "xos/protocol/udtp/client/hello/messages.hpp"
+#include "xos/protocol/udtp/plaintext/messages.hpp"
 
 #include "xos/crypto/hash/implemented/sha256.hpp"
 #include "xos/crypto/cipher/implemented/aes.hpp"
@@ -34,7 +34,7 @@ namespace server {
 
 /// class outputt
 template 
-<class TClientHelloMessages = xos::protocol::udtp::client::hello::messages,
+<class TPlaintextMessages = xos::protocol::udtp::plaintext::messages,
  class TExtendsOutput = udtp::base::output, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 
@@ -44,21 +44,20 @@ public:
     typedef TExtends extends;
     typedef outputt derives; 
     
-    typedef TClientHelloMessages client_hello_messages_t;
+    typedef TPlaintextMessages plaintext_messages_t;
     
     /// constructors / destructor
-    outputt(const outputt& copy)
-    : client_hello_messages_size_(0), 
-      client_decipher_text_size_(copy.client_decipher_text_size_) {
-        client_hello_messages_.set_length(client_hello_messages_size_);
-        client_decipher_text_.set_length(client_decipher_text_size_);
-        security_parameters_.set_record_iv_length_value(copy.security_parameters_.record_iv_length_value());
+private:
+    outputt(const outputt& copy) {
+        throw exception(exception_unexpected);
     }
+public:
     outputt()
     : client_hello_messages_size_(0), 
-      client_decipher_text_size_(1024*4) {
+      client_decipher_text_size_(udtp::cipher_text_size) {
         client_hello_messages_.set_length(client_hello_messages_size_);
         client_decipher_text_.set_length(client_decipher_text_size_);
+        encipher_text_.set_length(client_decipher_text_size_);
         security_parameters_.set_record_iv_length_value(xos::crypto::cipher::aes::IVSIZE);
     }
     virtual ~outputt() {
@@ -77,7 +76,7 @@ public:
                     xos::protocol::tls::plaintext *is_plaintext = 0;
 
                     if ((verbose)) {
-                        this->outln("byte_array=\\");
+                        this->outln("byte_array:\\");
                         this->output_hex(*array);
                         this->outln();
                     }
@@ -105,7 +104,7 @@ public:
                 const xos::protocol::tls::protocol::version& protocol_version = plaintext.version();
 
                 if ((verbose)) {
-                    this->outln("content_type=\\");
+                    this->outln("content_type:\\");
                     this->output_hex(content_type);
                     this->outln();
                 }
@@ -113,7 +112,7 @@ public:
                     const xos::protocol::tls::plaintext::fragment_length_t& fragment_length = plaintext.fragment_length();
 
                     if ((verbose)) {
-                        this->outln("protocol_version=\\");
+                        this->outln("protocol_version:\\");
                         this->output_hex(protocol_version);
                         this->outln();
                     }
@@ -122,7 +121,7 @@ public:
                         const xos::protocol::tls::plaintext::fragment_t& fragment = plaintext.fragment();
                         
                         if ((verbose)) {
-                            this->outlln("fragment_length[", unsigned_to_string(fragment_length_value).chars(), "]=\\", null);
+                            this->outlln("fragment_length[", unsigned_to_string(fragment_length_value).chars(), "]:\\", null);
                             this->output_hex(fragment_length);
                             this->outln();
                         }
@@ -130,7 +129,7 @@ public:
                             const xos::protocol::tls::plaintext::type_t::which_t& content_type_which = content_type.is();
                             
                             if ((verbose)) {
-                                this->outln("fragment=\\");
+                                this->outln("fragment:\\");
                                 this->output_hex(fragment);
                                 this->outln();
                             }
@@ -166,12 +165,12 @@ public:
                 const byte_t* bytes = 0; size_t length = 0;
 
                 if ((verbose)) {
-                    this->outln("handshake_type=\\");
+                    this->outln("handshake_type:\\");
                     this->output_x(&handshake_type, 1);
                     this->outln();
                 }
                 if ((verbose)) {
-                    this->outlln("handshake_length[", unsigned_to_string(handshake_length_value).chars(), "]=\\", null);
+                    this->outlln("handshake_length[", unsigned_to_string(handshake_length_value).chars(), "]:\\", null);
                     this->output_hex(handshake_length);
                     this->outln();
                 }
@@ -205,7 +204,7 @@ public:
                     xos::protocol::tls::client::hello::hello_random_t& client_hello_random = client_hello.hello_random();
 
                     if ((verbose)) {
-                        this->outln("client_hello_protocol_version=\\");
+                        this->outln("client_hello_protocol_version:\\");
                         this->output_hex(client_hello_protocol_version);
                         this->outln();
                     }
@@ -214,7 +213,7 @@ public:
                         xos::protocol::tls::client::hello::hello_random_t::random_bytes_t& client_hello_random_bytes = client_hello_random.random_bytes();
 
                         if ((verbose)) {
-                            this->outln("client_hello_random=\\");
+                            this->outln("client_hello_random:\\");
                             this->output_hex(client_hello_random);
                             this->outln();
                         }
@@ -223,13 +222,13 @@ public:
                             xos::protocol::tls::client::hello::hello_random_t::gmt_unix_time_t& client_hello_gmt_unix_time = client_hello_random.gmt_unix_time();
     
                             if ((verbose)) {
-                                this->outln("client_hello_random_bytes=\\");
+                                this->outln("client_hello_random_bytes:\\");
                                 this->output_hex(client_hello_random_bytes);
                                 this->outln();
                             }
                             if ((bytes = client_hello_gmt_unix_time.has_elements(length))) {
                                 if ((verbose)) {
-                                    this->outln("client_hello_gmt_unix_time=\\");
+                                    this->outln("client_hello_gmt_unix_time:\\");
                                     this->output_hex(client_hello_gmt_unix_time);
                                     this->outln();
                                 }
@@ -265,7 +264,7 @@ public:
                         xos::protocol::tls::decrypted::premaster::secret decrypted_pre_master_secret(private_key, encrypted_pre_master_secret);
                         
                         if ((verbose)) {
-                            this->outlln("encrypted_pre_master_secret[", unsigned_to_string(length).chars(), "]=\\", null);
+                            this->outlln("encrypted_pre_master_secret[", unsigned_to_string(length).chars(), "]:\\", null);
                             this->output_hex(encrypted_pre_master_secret);
                             this->outln();
                         }
@@ -274,14 +273,14 @@ public:
                             xos::protocol::tls::pkcs1::decoded::premaster::secret decoded_pre_master_secret(encoded_pre_master_secret);
 
                             if ((verbose)) {
-                                this->outlln("decrypted_pre_master_secret[", unsigned_to_string(length).chars(), "]=\\", null);
+                                this->outlln("decrypted_pre_master_secret[", unsigned_to_string(length).chars(), "]:\\", null);
                                 this->output_hex(decrypted_pre_master_secret);
                                 this->outln();
                             }
                             if ((bytes = decoded_pre_master_secret.has_elements(length))) {
                                 
                                 if ((verbose)) {
-                                    this->outlln("decoded_pre_master_secret[", unsigned_to_string(length).chars(), "]=\\", null);
+                                    this->outlln("decoded_pre_master_secret[", unsigned_to_string(length).chars(), "]:\\", null);
                                     this->output_hex(decoded_pre_master_secret);
                                     this->outln();
                                 }
@@ -310,7 +309,7 @@ public:
             const ::talas::byte_array_t& key_expansion_seed = this->key_expansion_seed();
 
             if ((verbose)) {
-                this->outln("master_secret=\\");
+                this->outln("master_secret:\\");
                 this->output_hex(master_secret);
                 this->outln();
             }
@@ -386,17 +385,17 @@ public:
                     const byte_t* bytes = 0; size_t length = 0;
 
                     if ((verbose)) {
-                        this->outln("generic_block_cipher_IV=\\");
+                        this->outln("generic_block_cipher_IV:\\");
                         this->output_hex(generic_block_cipher_IV);
                         this->outln();
                     }
                     if ((verbose)) {
-                        this->outln("generic_block_cipher_content=\\");
+                        this->outln("generic_block_cipher_content:\\");
                         this->output_hex(generic_block_cipher_content);
                         this->outln();
                     }
                     if ((verbose)) {
-                        this->outlln("generic_block_cipher_padding_length[", unsigned_to_string(generic_block_cipher_padding_length_value).chars(), "]=\\", null);
+                        this->outlln("generic_block_cipher_padding_length[", unsigned_to_string(generic_block_cipher_padding_length_value).chars(), "]:\\", null);
                         this->output_hex(generic_block_cipher_padding_length);
                         this->outln();
                     }
@@ -434,7 +433,7 @@ public:
                             const char_t* chars = 0;
 
                             if ((verbose)) {
-                                this->outln("client_decipher_text=\\");
+                                this->outln("client_decipher_text:\\");
                                 this->output_x(out, plain_length);
                                 this->outln();
                             }
@@ -444,9 +443,101 @@ public:
                                 client_plain_text.assign(chars);
                                 if ((chars = client_plain_text.has_chars(length))) {
                                     if ((verbose)) {
-                                        this->out("plain_text=\"");
+                                        this->out("client_plain_text:\"");
                                         this->out(chars, length);
                                         this->outln("\"");
+                                    }
+                                    err = output_cipher_text();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    /// ...output_cipher_text
+    virtual int output_cipher_text() {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+        ::talas::string_t &client_plain_text = this->client_plain_text(), 
+                          &server_plain_text = this->server_plain_text();
+        const char_t* chars = 0; size_t length = 0;
+
+        if (!(chars = server_plain_text.has_chars(length))) {
+            chars = client_plain_text.has_chars(length);
+        }
+        if ((chars) && (length)) {
+            ::talas::byte_array_t &encipher_text = this->encipher_text(), &cipher_text = this->cipher_text();
+            byte_t* out = 0; size_t size = 0;
+
+            if ((out = encipher_text.has_elements(size))) {
+                const ::talas::byte_array_t& write_key = this->write_key();
+                const byte_t* write_key_bytes = 0; size_t write_key_length = 0;
+                
+                if ((write_key_bytes = write_key.has_elements(write_key_length))) {
+                    const ::talas::byte_array_t& write_IV = this->write_IV();
+                    const byte_t* write_IV_bytes = 0; size_t write_IV_length = 0;
+                    
+                    if ((write_IV_bytes = write_IV.has_elements(write_IV_length))) {
+                        xos::crypto::cipher::implemented::aes aes
+                        (write_key_bytes, write_key_length, write_IV_bytes, write_IV_length);
+                        size_t cipher_length = 0;
+
+                        if (0 < (cipher_length = aes.encrypt(out, size, chars, length))) {
+                            ::talas::byte_array_t& write_MAC_key = this->write_MAC_key();
+                            uint8_t write_MAC_length = 0, write_MAC_key_length = 0;
+
+                            cipher_text.assign(out, cipher_length);
+                            if ((verbose)) {
+                                this->outln("cipher_text:\\");
+                                this->output_hex(cipher_text);
+                                this->outln();
+                            }
+                            if ((write_MAC_length = xos::crypto::hash::sha256::HASHSIZE) 
+                                && (write_MAC_key_length = write_MAC_key.length())) {
+                                xos::crypto::pseudo::random::reader::seed_t random_reader_seed = 0;
+                                xos::crypto::pseudo::random::reader random_reader(random_reader_seed);
+                                ::talas::byte_array_t generic_block_cipher_IV;
+                                byte_t* generic_block_cipher_IV_bytes = 0; uint8_t generic_block_cipher_IV_length = 0;
+                                
+                                generic_block_cipher_IV.set_length(write_IV_length);
+                                if ((generic_block_cipher_IV_bytes = generic_block_cipher_IV.has_elements()) 
+                                    && (write_IV_length == (generic_block_cipher_IV_length = generic_block_cipher_IV.length()))) {
+                                    
+                                    if (write_IV_length == (random_reader.read
+                                        (generic_block_cipher_IV_bytes, generic_block_cipher_IV_length))) {
+                                        xos::protocol::tls::generic::block::cipher generic_block_cipher(generic_block_cipher_IV, cipher_text);
+                                        byte_t* generic_block_cipher_bytes = 0; size_t generic_block_cipher_length = 0;
+    
+                                        if ((verbose)) {
+                                            this->outlln("generic_block_cipher_IV[", unsigned_to_string(generic_block_cipher_IV_length).chars(), "]:\\", null);
+                                            this->output_hex(generic_block_cipher_IV);
+                                            this->outln();
+                                        }
+                                        if ((verbose)) {
+                                            this->outln("generic_block_cipher:\\");
+                                            this->output_hex(generic_block_cipher);
+                                            this->outln();
+                                        }
+                                        if ((generic_block_cipher_bytes = generic_block_cipher.has_elements(generic_block_cipher_length))) {
+                                            xos::protocol::tls::protocol::version& protocol_version = this->protocol_version();
+                                            xos::protocol::tls::content::type content_type(xos::protocol::tls::content::type::application_data);
+                                            xos::protocol::tls::ciphertext ciphertext(content_type, protocol_version, generic_block_cipher);
+                                            byte_t* ciphertext_bytes = 0; size_t ciphertext_length = 0;
+                                            
+                                            if ((ciphertext_bytes = ciphertext.has_elements(ciphertext_length))) {
+                                                
+                                                if ((verbose)) {
+                                                    this->outln("cipher_text:\\");
+                                                }
+                                                this->output_hex(ciphertext);
+                                                if ((verbose)) {
+                                                    this->outln();
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -458,17 +549,53 @@ public:
         return err;
     }
 
-    /// on_set_client_hello_message_option
+    /// ...output_server_hello_message
+    virtual int output_server_hello_message() {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+
+        ::talas::string_t &client_plain_text = this->client_plain_text(), 
+                          &server_plain_text = this->server_plain_text();
+        const char_t* chars = 0; size_t length = 0;
+
+        if (!(chars = server_plain_text.has_chars(length))) {
+            chars = client_plain_text.has_chars(length);
+        }
+        if ((chars) && (length)) {
+            if ((verbose)) {
+                this->out("server_plain_text:\"");
+            }
+            this->out(chars, length);
+            if ((verbose)) {
+                this->outln("\"");
+            }
+        }
+        return err;
+    }
+
+    /// ...option...
     virtual int on_set_client_hello_message_option(const char_t* client_hello_message) {
         int err = 0;
         client_hello_messages_string_.assign(client_hello_message);
         err = this->on_set_hex_literal_array(client_hello_messages_, client_hello_messages_string_);
         return err;
     }
+    virtual int on_set_server_hello_message_option(const char_t* optarg) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            const byte_t* bytes = 0; size_t length = 0;
+            literal_string_.assign(optarg);
+            this->on_set_text_literal(literal_, literal_string_);
+            if ((bytes = literal_.has_elements(length))) {
+                server_plain_text_.assign(((const char_t*)bytes), length);
+            }
+        }
+        return err;
+    }
 
     /// ...hello_messages...
-    virtual client_hello_messages_t& client_hello_messages() const {
-        return (client_hello_messages_t&)client_hello_messages_;
+    virtual plaintext_messages_t& client_hello_messages() const {
+        return (plaintext_messages_t&)client_hello_messages_;
     }
     virtual size_t& client_chello_messages_size() const {
         return (size_t&)client_hello_messages_size_;
@@ -493,6 +620,13 @@ public:
     virtual ::talas::string_t& client_plain_text() const {
         return (::talas::string_t&)client_plain_text_;
     }
+    virtual const char_t* server_plain_text_chars(size_t& length) const {
+        const ::talas::string_t& server_plain_text = this->server_plain_text();
+        return server_plain_text.has_chars(length);
+    }
+    virtual ::talas::string_t& server_plain_text() const {
+        return (::talas::string_t&)server_plain_text_;
+    }
 
     /// security_parameters
     virtual xos::protocol::tls::security::parameters& security_parameters() const {
@@ -511,8 +645,11 @@ public:
     }
     
     /// ...
-    virtual ::talas::byte_array_t& master_secret() const {
-        return (::talas::byte_array_t&)master_secret_;
+    virtual ::talas::byte_array_t& encipher_text() const {
+        return (::talas::byte_array_t&)encipher_text_;
+    }
+    virtual ::talas::byte_array_t& cipher_text() const {
+        return (::talas::byte_array_t&)cipher_text_;
     }
     virtual ::talas::byte_array_t& write_MAC_key() const {
         return (::talas::byte_array_t&)write_MAC_key_;
@@ -527,13 +664,13 @@ public:
 protected:
     size_t client_hello_messages_size_, client_decipher_text_size_;
     ::talas::string_t client_hello_messages_string_;
-    client_hello_messages_t client_hello_messages_;
+    plaintext_messages_t client_hello_messages_;
     ::talas::byte_array_t client_hello_protocol_version_, 
                           client_hello_random_, 
                           client_pre_master_secret_, 
                           client_decipher_text_;
-    ::talas::string_t client_plain_text_;
-    ::talas::byte_array_t master_secret_, write_MAC_key_, write_key_, write_IV_;
+    ::talas::string_t client_plain_text_, server_plain_text_, literal_string_;
+    ::talas::byte_array_t encipher_text_, cipher_text_, literal_, master_secret_, write_MAC_key_, write_key_, write_IV_;
     xos::protocol::tls::security::parameters security_parameters_;
 }; /// class outputt
 typedef outputt<> output;

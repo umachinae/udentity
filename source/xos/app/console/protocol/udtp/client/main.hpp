@@ -85,6 +85,18 @@ protected:
         output.output_generate_client_hello();
         return err;
     }
+    virtual int output_server_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_server_hello();
+        return err;
+    }
+    virtual int output_server_client_hello_run(int argc, char_t** argv, char_t** env) {
+        int err = 0;
+        output_t& output = this->output(); 
+        output.output_server_client_hello();
+        return err;
+    }
 
     /// ...option...
     virtual int on_set_client_hello_message_option
@@ -93,6 +105,24 @@ protected:
         if ((optarg) && (optarg[0])) {
             output_t& output = this->output(); 
             output.on_set_client_hello_message_option(optarg);
+        }
+        return err;
+    }
+    virtual int on_set_server_hello_message_option
+    (const char_t* optarg, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            output_t& output = this->output(); 
+            output.on_set_server_hello_message_option(optarg);
+        }
+        return err;
+    }
+    virtual int on_set_server_client_hello_message_option
+    (const char_t* optarg, int argc, char_t**argv, char_t**env) {
+        int err = 0;
+        if ((optarg) && (optarg[0])) {
+            output_t& output = this->output(); 
+            output.on_set_server_client_hello_message_option(optarg);
         }
         return err;
     }
