@@ -65,6 +65,7 @@ $${UDENTITY_SRC}/xos/io/crypto/output.hpp \
 \
 $${UDENTITY_SRC}/xos/protocol/udtp/base/output.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.hpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/server/output.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udentity/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/udentity/main.hpp \
@@ -77,6 +78,9 @@ $${UDENTITY_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.hpp \
+\
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udfy/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/udfy/main.hpp \

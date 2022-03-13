@@ -83,7 +83,7 @@ $${UDENTITY_SRC}/xos/protocol/tls/generic/block/cipher.hpp \
 \
 $${UDENTITY_SRC}/xos/protocol/udtp/base/output.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.hpp \
-$${UDENTITY_SRC}/xos/protocol/udtp/client/hello/messages.hpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/plaintext/messages.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/server/output.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udentity/main_opt.hpp \
@@ -125,7 +125,7 @@ $${UDENTITY_SRC}/xos/protocol/tls/client/key/exchange/message.cpp \
 $${UDENTITY_SRC}/xos/protocol/tls/security/parameters.cpp \
 $${UDENTITY_SRC}/xos/protocol/tls/generic/block/cipher.cpp \
 \
-$${UDENTITY_SRC}/xos/protocol/udtp/client/hello/messages.cpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/plaintext/messages.cpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/server/output.cpp \
 \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.cpp \
