@@ -895,6 +895,25 @@ public:
         return err;
     }
 
+    /// ...output_client_hello_message_run
+    virtual int output_client_hello_message() {
+        int err = 0;
+        const bool verbose = this->verbose_output();
+        ::talas::string_t& client_plain_text = this->client_plain_text();
+        const char_t* chars = 0; size_t length = 0;
+
+        if ((chars = client_plain_text.has_chars(length))) {
+            if ((verbose)) {
+                this->out("client_plain_text:\"");
+            }
+            this->out(chars, length);
+            if ((verbose)) {
+                this->outln("\"");
+            }
+        }
+        return err;
+    }
+
     /// ...option...
     virtual int on_set_client_hello_message_option(const char_t* optarg) {
         int err = 0;

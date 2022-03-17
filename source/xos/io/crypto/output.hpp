@@ -128,6 +128,11 @@ public:
         on_set_text_literal_ = &derives::on_set_text_file_literal;
         return err;
     }
+    virtual int unset_on_set_text_file_literal() {
+        int err = 0;
+        on_set_text_literal_ = 0;
+        return err;
+    }
 
     /// on_set_hex_..._literal
     int (derives::*on_set_hex_literal_)(::talas::byte_array_t &array, ::talas::string_t &literal);
@@ -167,6 +172,11 @@ public:
     virtual int set_on_set_hex_file_literal() {
         int err = 0;
         on_set_hex_literal_ = &derives::on_set_hex_file_literal;
+        return err;
+    }
+    virtual int unset_on_set_hex_file_literal() {
+        int err = 0;
+        on_set_hex_literal_ = 0;
         return err;
     }
 
@@ -240,6 +250,11 @@ public:
     virtual int set_on_set_hex_file_literal_array() {
         int err = 0;
         on_set_hex_literal_array_ = &derives::on_set_hex_file_literal_array;
+        return err;
+    }
+    virtual int unset_on_set_hex_file_literal_array() {
+        int err = 0;
+        on_set_hex_literal_array_ = 0;
         return err;
     }
 
@@ -330,6 +345,11 @@ public:
         on_set_hex_literals_ = &derives::on_set_hex_file_literals;
         return err;
     }
+    virtual int unset_on_set_hex_file_literals() {
+        int err = 0;
+        on_set_hex_literals_ = 0;
+        return err;
+    }
 
     /// on_set_hex_literals
     virtual int on_set_hex_literals
@@ -381,6 +401,32 @@ public:
         int err = 0;
         ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, &a7, null);
         err = on_set_hex_literals(to_arrays, literal);
+        return err;
+    }
+
+    /// set_on_set...literals
+    virtual int set_on_set_file_literals() {
+        int err = 0;
+        if (!(err = set_on_set_text_file_literal())) {
+            if (!(err = set_on_set_hex_file_literal())) {
+                if (!(err = set_on_set_hex_file_literal_array())) {
+                    if (!(err = set_on_set_hex_file_literals())) {
+                    }
+                }
+            }
+        }
+        return err;
+    }
+    virtual int unset_on_set_file_literals() {
+        int err = 0;
+        if (!(err = unset_on_set_text_file_literal())) {
+            if (!(err = unset_on_set_hex_file_literal())) {
+                if (!(err = unset_on_set_hex_file_literal_array())) {
+                    if (!(err = unset_on_set_hex_file_literals())) {
+                    }
+                }
+            }
+        }
         return err;
     }
 

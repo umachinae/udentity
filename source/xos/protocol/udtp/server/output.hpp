@@ -580,6 +580,12 @@ public:
         err = this->on_set_hex_literal_array(client_hello_messages_, client_hello_messages_string_);
         return err;
     }
+    virtual int on_set_client_hello_message_option(const char_t* client_hello_message, size_t length) {
+        int err = 0;
+        client_hello_messages_string_.assign(client_hello_message, length);
+        err = this->on_set_hex_literal_array(client_hello_messages_, client_hello_messages_string_);
+        return err;
+    }
     virtual int on_set_server_hello_message_option(const char_t* optarg) {
         int err = 0;
         if ((optarg) && (optarg[0])) {
