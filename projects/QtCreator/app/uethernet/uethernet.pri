@@ -13,57 +13,69 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: libudentity.pri
+#   File: uethernet.pri
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 3/21/2022
 #
-# generic QtCreator project .pri file for framework udentity static library libudentity
+# generic QtCreator project .pri file for framework udentity executable uethernet
 ########################################################################
 
 ########################################################################
-# libudentity
-XOS_LIB_UDENTITY_VERSION_BUILD_DATE = 3/3/2022 #$$system(~/bin/utility/tdate)
+# uethernet
 
-# libudentity TARGET
+# uethernet TARGET
 #
-libudentity_TARGET = udentity
-libudentity_TEMPLATE = lib
-libudentity_CONFIG += staticlib
+uethernet_TARGET = uethernet
 
-# libudentity INCLUDEPATH
+# uethernet INCLUDEPATH
 #
-libudentity_INCLUDEPATH += \
+uethernet_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# libudentity DEFINES
+# uethernet DEFINES
 #
-libudentity_DEFINES += \
+uethernet_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
-XOS_LIB_UDENTITY_VERSION_BUILD_DATE=$${XOS_LIB_UDENTITY_VERSION_BUILD_DATE} \
+XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# libudentity OBJECTIVE_HEADERS
+# uethernet OBJECTIVE_HEADERS
 #
-#libudentity_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/lib/udentity/version.hh \
+#uethernet_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/uethernet/main.hh \
 
-# libudentity OBJECTIVE_SOURCES
+# uethernet OBJECTIVE_SOURCES
 #
-#libudentity_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/lib/udentity/version.mm \
-
-########################################################################
-# libudentity HEADERS
-#
-libudentity_HEADERS += \
-$${UDENTITY_SRC}/xos/lib/udentity/version.hpp \
-
-# libudentity SOURCES
-#
-libudentity_SOURCES += \
-$${UDENTITY_SRC}/xos/lib/udentity/version.cpp \
+#uethernet_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/uethernet/main.mm \
 
 ########################################################################
+# uethernet HEADERS
+#
+uethernet_HEADERS += \
+$${UDENTITY_SRC}/xos/app/console/uethernet/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/uethernet/main.hpp \
+
+# uethernet SOURCES
+#
+uethernet_SOURCES += \
+$${UDENTITY_SRC}/xos/app/console/uethernet/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/uethernet/main.cpp \
+
+########################################################################
+# uethernet FRAMEWORKS
+#
+uethernet_FRAMEWORKS += \
+$${udentity_FRAMEWORKS} \
+
+# uethernet LIBS
+#
+uethernet_LIBS += \
+$${udentity_LIBS} \
+
+########################################################################
+# NO Qt
+QT -= gui core
 

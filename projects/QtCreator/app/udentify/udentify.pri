@@ -13,49 +13,48 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udentity.pri
+#   File: udentify.pri
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 4/7/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udentity
+# generic QtCreator project .pri file for framework udentity executable udentify
 ########################################################################
 
 ########################################################################
-# udentity
+# udentify
 
-# udentity_exe TARGET
+# udentify TARGET
 #
-udentity_exe_TARGET = udentity
+udentify_TARGET = udentify
 
-# udentity_exe INCLUDEPATH
+# udentify INCLUDEPATH
 #
-udentity_exe_INCLUDEPATH += \
+udentify_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udentity_exe DEFINES
+# udentify DEFINES
 #
-udentity_exe_DEFINES += \
+udentify_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udentity_exe OBJECTIVE_HEADERS
+# udentify OBJECTIVE_HEADERS
 #
-#udentity_exe_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/main.hh \
+#udentify_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/udentify/main.hh \
 
-# udentity_exe OBJECTIVE_SOURCES
+# udentify OBJECTIVE_SOURCES
 #
-#udentity_exe_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/main.mm \
+#udentify_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/udentify/main.mm \
 
 ########################################################################
-# udentity_exe HEADERS
+# udentify HEADERS
 #
-udentity_exe_HEADERS += \
-$${UDENTITY_SRC}/talas/base/array.hpp \
+udentify_HEADERS += \
 $${UDENTITY_SRC}/talas/io/hex/read_to_arrays.hpp \
 \
 $${UDENTITY_SRC}/xos/io/output.hpp \
@@ -64,26 +63,8 @@ $${UDENTITY_SRC}/xos/io/crt/file/output.hpp \
 $${UDENTITY_SRC}/xos/io/console/output.hpp \
 $${UDENTITY_SRC}/xos/io/crypto/output.hpp \
 \
-$${UDENTITY_SRC}/xos/crypto/hash/sha256.hpp \
-$${UDENTITY_SRC}/xos/crypto/hash/openssl/sha256.hpp \
-\
-$${UDENTITY_SRC}/xos/protocol/tls/uinteger.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/message/part.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/plaintext.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/random/bytes.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/hello/random.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/gmt/unix/time.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/client/hello.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/master/secret.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/encrypted/premaster/secret.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/client/key/exchange/message.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/handshake/message.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/security/parameters.hpp \
-$${UDENTITY_SRC}/xos/protocol/tls/generic/block/cipher.hpp \
-\
 $${UDENTITY_SRC}/xos/protocol/udtp/base/output.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/client/output.hpp \
-$${UDENTITY_SRC}/xos/protocol/udtp/plaintext/messages.hpp \
 $${UDENTITY_SRC}/xos/protocol/udtp/server/output.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/udentity/main_opt.hpp \
@@ -101,41 +82,25 @@ $${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.hpp \
 
-# udentity_exe SOURCES
+# udentify SOURCES
 #
-udentity_exe_SOURCES += \
-$${UDENTITY_SRC}/talas/base/array.cpp \
+udentify_SOURCES += \
 $${UDENTITY_SRC}/talas/io/hex/read_to_arrays.cpp \
 \
-$${UDENTITY_SRC}/xos/crypto/hash/openssl/sha256.cpp \
+$${UDENTITY_SRC}/xos/protocol/udtp/client/output.cpp \
 \
-$${UDENTITY_SRC}/xos/protocol/tls/uinteger.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/message/part.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/plaintext.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/gmt/unix/time.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/random/bytes.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/hello/random.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/client/hello.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/master/secret.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/client/key/exchange/message.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/security/parameters.cpp \
-$${UDENTITY_SRC}/xos/protocol/tls/generic/block/cipher.cpp \
-\
-$${UDENTITY_SRC}/xos/protocol/udtp/plaintext/messages.cpp \
-$${UDENTITY_SRC}/xos/protocol/udtp/server/output.cpp \
-\
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.cpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/client/main.cpp \
 
 ########################################################################
-# udentity_exe FRAMEWORKS
+# udentify FRAMEWORKS
 #
-udentity_exe_FRAMEWORKS += \
+udentify_FRAMEWORKS += \
 $${udentity_FRAMEWORKS} \
 
-# udentity_exe LIBS
+# udentify LIBS
 #
-udentity_exe_LIBS += \
+udentify_LIBS += \
 $${udentity_rsa_LIBS} \
 
 ########################################################################
