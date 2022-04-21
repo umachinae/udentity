@@ -292,11 +292,11 @@ public:
                 if ((bytes = hello_randoms.has_elements(length))) {
                     xos::protocol::tls::pseudo::random::reader key_material(master_secret, key_expansion_seed, hello_randoms);
                     byte_t* key = 0; size_t keylen = 0, keysize = 0;
-                    ::talas::byte_array_t client_write_MAC_key;
+                    ::talas::byte_array_t& client_write_MAC_key = this->write_MAC_key();
                     
                     client_write_MAC_key.set_length(keysize = xos::crypto::hash::sha256::KEYMAX);
                     if ((key = client_write_MAC_key.has_elements(keylen)) && (keysize == keylen)) {
-                        ::talas::byte_array_t client_write_key;
+                        ::talas::byte_array_t& client_write_key = this->write_key();
                         
                         if (keylen == (key_material.read(key, keylen))) {
                             if ((verbose)) {
@@ -307,7 +307,7 @@ public:
                         }                        
                         client_write_key.set_length(keysize = xos::crypto::cipher::aes::KEYMAX);
                         if ((key = client_write_key.has_elements(keylen)) && (keysize == keylen)) {
-                            ::talas::byte_array_t client_write_IV;
+                            ::talas::byte_array_t& client_write_IV = this->write_IV();
                             
                             if (keylen == (key_material.read(key, keylen))) {
                                 if ((verbose)) {
@@ -723,6 +723,8 @@ public:
         }
         return err;
     }
+    
+    /// ...output_server_hello
     virtual int output_server_hello() {
         int err = 0;
         const bool verbose = this->verbose_output();

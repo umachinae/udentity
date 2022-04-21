@@ -632,6 +632,11 @@ public:
         output_to = to;
         return old_output_to;
     }
+    virtual output_to_t* unset_output_to() {
+        output_to_t *&output_to = this->output_to(), *old_output_to = output_to;
+        output_to = 0;
+        return old_output_to;
+    }
 protected:
     virtual output_to_t*& output_to() const {
         return (output_to_t*&)output_to_;

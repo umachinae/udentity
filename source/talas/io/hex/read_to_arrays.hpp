@@ -85,8 +85,8 @@ public:
 
     /// on_...
     virtual ssize_t on_begin(what_t* what, size_t size) {
-        size_t length = 0;
-        if (((array_index_ + 1) < (length = arrays_.length()))) {
+        size_t index = 0, length = 0;
+        if ((((index = array_index_) + 1) <= (length = arrays_.length()))) {
             if ((array_pointer_ = arrays_[array_index_++])) {
                 array_pointer_->set_length(0);
             }
