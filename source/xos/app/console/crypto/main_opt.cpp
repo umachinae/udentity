@@ -16,7 +16,7 @@
 ///   File: main_opt.cpp
 ///
 /// Author: $author$
-///   Date: 3/5/2022
+///   Date: 7/2/2022
 ///////////////////////////////////////////////////////////////////////
 #include "xos/app/console/crypto/main_opt.hpp"
 
@@ -29,9 +29,9 @@ namespace app {
 namespace console {
 namespace crypto {
 
-/// class main
+/// class main_opt
 #if defined(XOS_APP_CONSOLE_CRYPTO_MAIN_OPT_INSTANCE)
-static main the_main;
+static main_opt the_main_opt;
 #endif /// defined(XOS_APP_CONSOLE_CRYPTO_MAIN_OPT_INSTANCE)
 
 } /// namespace crypto

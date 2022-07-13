@@ -16,13 +16,23 @@
 ///   File: output.cpp
 ///
 /// Author: $author$
-///   Date: 3/3/2022
+///   Date: 6/18/2022
 ///////////////////////////////////////////////////////////////////////
 #include "xos/io/console/output.hpp"
+
+#if !defined(XOS_IO_CONSOLE_OUTPUT_INSTANCE)
+///#define XOS_IO_CONSOLE_OUTPUT_INSTANCE
+#endif /// !defined(XOS_IO_CONSOLE_OUTPUT_INSTANCE)
 
 namespace xos {
 namespace io {
 namespace console {
+
+///  Class: outputt
+#if defined(XOS_IO_CONSOLE_OUTPUT_INSTANCE)
+static output the_output;
+#endif /// defined(XOS_IO_CONSOLE_OUTPUT_INSTANCE)
+
 
 } /// namespace console
 } /// namespace io

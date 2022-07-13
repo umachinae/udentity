@@ -16,7 +16,7 @@
 ///   File: messages.hpp
 ///
 /// Author: $author$
-///   Date: 3/13/2022
+///   Date: 5/19/2022
 ///////////////////////////////////////////////////////////////////////
 #ifndef XOS_PROTOCOL_UDTP_PLAINTEXT_MESSAGES_HPP
 #define XOS_PROTOCOL_UDTP_PLAINTEXT_MESSAGES_HPP
@@ -31,7 +31,7 @@ namespace plaintext {
 /// class messagest
 template 
 <class TPlaintext = xos::protocol::tls::plaintext, 
- class TArrays = ::talas::byte_arrays_t, 
+ class TArrays = xos::protocol::tls::byte_arrays_t, 
  class TExtends = TArrays, class TImplements = typename TExtends::implements>
 
 class exported messagest: virtual public TImplements, public TExtends {
@@ -71,4 +71,4 @@ typedef messagest<> messages;
 } /// namespace protocol
 } /// namespace xos
 
-#endif /// XOS_PROTOCOL_UDTP_PLAINTEXT_MESSAGES_HPP
+#endif /// ndef XOS_PROTOCOL_UDTP_PLAINTEXT_MESSAGES_HPP

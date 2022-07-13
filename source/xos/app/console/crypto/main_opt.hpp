@@ -16,19 +16,19 @@
 ///   File: main_opt.hpp
 ///
 /// Author: $author$
-///   Date: 3/5/2022
+///   Date: 7/2/2022, 7/11/2022
 ///////////////////////////////////////////////////////////////////////
 #ifndef XOS_APP_CONSOLE_CRYPTO_MAIN_OPT_HPP
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_OPT_HPP
 
-#include "xos/app/console/udentity/main.hpp"
+#include "xos/app/console/udentity/version/main.hpp"
 #include "xos/io/crypto/output.hpp"
 
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPT "file-input"
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTARG_RESULT 0
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTARG ""
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTUSE "input from file"
+#define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTUSE "input from literal file"
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTVAL_S "f"
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C 'f'
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTION \
@@ -42,34 +42,21 @@
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTARG_RESULT 0
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTARG ""
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTUSE "input from literal string"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S "t"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C 't'
+#define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S "i"
+#define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C 'i'
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTION \
    {XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPT, \
     XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTARG_REQUIRED, \
     XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTARG_RESULT, \
     XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C}, \
 
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPT "quiet"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG_RESULT 0
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG ""
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTUSE "quiet output"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_S "q"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_C 'q'
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTION \
-   {XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPT, \
-    XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG_REQUIRED, \
-    XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG_RESULT, \
-    XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_C}, \
-
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPT "verbose"
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTARG_REQUIRED MAIN_OPT_ARGUMENT_NONE
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTARG_RESULT 0
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTARG ""
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTUSE "verbose output"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_S "o"
-#define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_C 'o'
+#define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_S "v"
+#define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_C 'v'
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTION \
    {XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPT, \
     XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTARG_REQUIRED, \
@@ -79,22 +66,20 @@
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
     XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTVAL_S \
     XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_S \
-    XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_S \
     XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_S \
 
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_OPTIONS_EXTEND \
     XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTION \
     XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTION \
-    XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTION \
     XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTION \
 
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_CHARS \
    XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_CHARS_EXTEND \
-   XOS_APP_CONSOLE_UDENTITY_MAIN_OPTIONS_CHARS
+   XOS_APP_CONSOLE_MAIN_LOGGING_OPTIONS_CHARS
 
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_OPTIONS \
    XOS_APP_CONSOLE_CRYPTO_MAIN_OPTIONS_OPTIONS_EXTEND \
-   XOS_APP_CONSOLE_UDENTITY_MAIN_OPTIONS_OPTIONS
+   XOS_APP_CONSOLE_MAIN_LOGGING_OPTIONS_OPTIONS
 
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_ARGS 0
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_ARGV 0,
@@ -107,7 +92,7 @@ namespace crypto {
 /// class main_optt
 template 
 <class TOutput = xos::io::crypto::output, 
- class TExtends = xos::app::console::udentity::main, 
+ class TExtends = xos::app::console::udentity::version::main, 
  class TImplements = typename TExtends::implements>
 
 class exported main_optt: virtual public TImplements, public TExtends {
@@ -125,8 +110,7 @@ public:
     typedef typename extends::file_t file_t;
 
     /// constructor / destructor
-    main_optt(): run_(0), verbose_output_(0) {
-        set_verbose_output(verbose_output_);
+    main_optt(): run_(0) {
     }
     virtual ~main_optt() {
     }
@@ -139,7 +123,13 @@ protected:
     typedef typename extends::in_reader_t in_reader_t;
     typedef typename extends::out_writer_t out_writer_t;
     typedef typename extends::err_writer_t err_writer_t;
+
     typedef TOutput output_t;
+    typedef typename output_t::literal_string_t literal_string_t;
+    typedef typename output_t::byte_array_t byte_array_t;
+    typedef typename output_t::byte_arrays_t byte_arrays_t;
+    typedef typename output_t::hex_read_to_byte_array_t hex_read_to_byte_array_t;
+    typedef typename output_t::hex_read_to_byte_arrays_t hex_read_to_byte_arrays_t;
 
     /// ...run
     int (derives::*run_)(int argc, char_t** argv, char_t** env);
@@ -154,21 +144,21 @@ protected:
     }
 
     /// ...output_hex_run
-    virtual int output_hex_run(const ::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
+    virtual int output_hex_run(const byte_array_t &array, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.output_hex(array);
         return err;
     }
-    virtual int before_output_hex_run(::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
+    virtual int before_output_hex_run(byte_array_t &array, int argc, char_t** argv, char_t** env) {
         int err = 0;
         return err;
     }
-    virtual int after_output_hex_run(::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
+    virtual int after_output_hex_run(byte_array_t &array, int argc, char_t** argv, char_t** env) {
         int err = 0;
         return err;
     }
-    virtual int all_output_hex_run(::talas::byte_array_t &array, int argc, char_t** argv, char_t** env) {
+    virtual int all_output_hex_run(byte_array_t &array, int argc, char_t** argv, char_t** env) {
         int err = 0;
         if (!(err = before_output_hex_run(array, argc, argv, env))) {
             int err2 = 0;
@@ -181,7 +171,7 @@ protected:
     }
 
     /// ...on_set_text_literal
-    virtual int on_set_text_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    virtual int on_set_text_literal(byte_array_t &array, literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_text_literal(array, literal);
@@ -201,7 +191,7 @@ protected:
     }
 
     /// ...on_set_hex_literal
-    virtual int on_set_hex_literal(::talas::byte_array_t &array, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    virtual int on_set_hex_literal(byte_array_t &array, literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literal(array, literal);
@@ -220,8 +210,8 @@ protected:
         return err;
     }
 
-    /// ...on_set_hex_literal_array
-    virtual int on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    /// ...on_set_hex_literal
+    virtual int on_set_hex_literal_array(byte_arrays_t &arrays, literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literal_array(arrays, literal);
@@ -242,8 +232,8 @@ protected:
 
     /// ...on_set_hex_literals
     virtual int on_set_hex_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (hex_read_to_byte_arrays_t &to_arrays, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(to_arrays, literal);
@@ -264,54 +254,54 @@ protected:
 
     /// on_set_hex_literals
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, ::talas::byte_array_t &a3, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, byte_array_t &a3, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, a3, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, a3, a4, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, ::talas::byte_array_t &a5, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, byte_array_t &a5, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, a3, a4, a5, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::byte_array_t &a5, ::talas::byte_array_t &a6, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     byte_array_t &a5, byte_array_t &a6, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, a3, a4, a5, a6, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::byte_array_t &a5, ::talas::byte_array_t &a6, ::talas::byte_array_t &a7, 
-     ::talas::string_t &literal, int argc, char_t** argv, char_t** env) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     byte_array_t &a5, byte_array_t &a6, byte_array_t &a7, 
+     literal_string_t &literal, int argc, char_t** argv, char_t** env) {
         int err = 0;
         output_t& output = this->output();
         output.on_set_hex_literals(a1, a2, a3, a4, a5, a6, a7, literal);
@@ -369,18 +359,6 @@ protected:
         optarg = XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTARG;
         return chars;
     }
-    virtual int on_quiet_option
-    (int optval, const char_t* optarg, const char_t* optname,
-     int optind, int argc, char_t**argv, char_t**env) {
-        int err = 0;
-        set_verbose_output(false);
-        return err;
-    }
-    virtual const char_t* quiet_option_usage(const char_t*& optarg, const struct option* longopt) {
-        const char_t* chars = XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTUSE;
-        optarg = XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTARG;
-        return chars;
-    }
 
     /// ...option...
     virtual int on_option
@@ -388,18 +366,18 @@ protected:
      int optind, int argc, char_t**argv, char_t**env) {
         int err = 0;
         switch(optval) {
+
         case XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C:
             err = this->on_file_input_option(optval, optarg, optname, optind, argc, argv, env);
             break;
         case XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
             err = this->on_string_input_option(optval, optarg, optname, optind, argc, argv, env);
             break;
+
         case XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_C:
             err = this->on_verbose_option(optval, optarg, optname, optind, argc, argv, env);
             break;
-        case XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_C:
-            err = this->on_quiet_option(optval, optarg, optname, optind, argc, argv, env);
-            break;
+
         default:
             err = extends::on_option(optval, optarg, optname, optind, argc, argv, env);
         }
@@ -408,18 +386,18 @@ protected:
     virtual const char_t* option_usage(const char_t*& optarg, const struct option* longopt) {
         const char_t* chars = "";
         switch(longopt->val) {
+
         case XOS_APP_CONSOLE_CRYPTO_MAIN_FILE_INPUT_OPTVAL_C:
             chars = this->file_input_option_usage(optarg, longopt);
             break;
         case XOS_APP_CONSOLE_CRYPTO_MAIN_STRING_INPUT_OPTVAL_C:
             chars = this->string_input_option_usage(optarg, longopt);
             break;
+
         case XOS_APP_CONSOLE_CRYPTO_MAIN_VERBOSE_OPTVAL_C:
             chars = this->verbose_option_usage(optarg, longopt);
             break;
-        case XOS_APP_CONSOLE_CRYPTO_MAIN_QUIET_OPTVAL_C:
-            chars = this->quiet_option_usage(optarg, longopt);
-            break;
+
         default:
             chars = extends::option_usage(optarg, longopt);
             break;
@@ -447,8 +425,9 @@ protected:
 
     /// ...output
     virtual bool& set_verbose_output(const bool& to) {
+        output_t& output = this->output();
         bool& verbose_output = this->verbose_output();
-        verbose_output = to;
+        verbose_output = output.set_verbose_output(to);
         return verbose_output;
     }
     virtual bool& verbose_output() const {

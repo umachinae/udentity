@@ -16,22 +16,23 @@
 ///   File: output.hpp
 ///
 /// Author: $author$
-///   Date: 3/4/2022
+///   Date: 5/18/2022, 6/1/2022
 ///////////////////////////////////////////////////////////////////////
 #ifndef XOS_IO_CRYPTO_OUTPUT_HPP
 #define XOS_IO_CRYPTO_OUTPUT_HPP
 
 #include "xos/io/console/output.hpp"
 
-#include "talas/base/array.hpp"
-#include "talas/base/string.hpp"
+#include "xos/base/array.hpp"
+#include "xos/base/arrays.hpp"
+#include "xos/base/string.hpp"
 
-#include "talas/io/string/reader.hpp"
-#include "talas/io/read/file.hpp"
+#include "xos/io/file/reader.hpp"
+#include "xos/io/string/reader.hpp"
 
-#include "talas/io/hex/read_to_arrays.hpp"
-#include "talas/io/hex/read_to_array.hpp"
-#include "talas/io/hex/reader.hpp"
+#include "xos/io/hex/reader.hpp"
+#include "xos/io/hex/read_to_array.hpp"
+#include "xos/io/hex/read_to_arrays.hpp"
 
 namespace xos {
 namespace io {
@@ -39,7 +40,15 @@ namespace crypto {
 
 /// class outputt
 template 
-<class TForwardedOutput = io::console::output, 
+<class TLiteralString = xos::base::string, 
+ class TByteArray = xos::byte_array, 
+ class TByteArrays = xos::arrayst<TByteArray>,
+ class TFileCharReader = xos::io::file::reader,
+ class TStringCharReader = xos::io::string::reader,
+ class THexCharReader = xos::io::hex::reader,
+ class THexReadToByteArray = xos::io::hex::read_to_arrayt<TByteArray>,
+ class THexReadToByteArrays = xos::io::hex::read_to_arrayst<TByteArrays, TByteArray>,
+ class TForwardedOutput = io::console::output, 
  class TExtendsOutput = io::forwarded::outputt<TForwardedOutput>, 
  class TExtends = TExtendsOutput, class TImplements = typename TExtends::implements>
 
@@ -49,12 +58,21 @@ public:
     typedef TExtends extends;
     typedef outputt derives; 
     
-    typedef typename extends::output_to_t output_to_t;
+    typedef TLiteralString literal_string_t;
+    typedef TByteArray byte_array_t;
+    typedef TByteArrays byte_arrays_t;
+    typedef THexReadToByteArray hex_read_to_byte_array_t;
+    typedef THexReadToByteArrays hex_read_to_byte_arrays_t;
+    typedef TFileCharReader file_char_reader_t;
+    typedef TStringCharReader string_char_reader_t;
+    typedef THexCharReader hex_char_reader_t;
+
+    typedef typename extends::char_t char_t;
+    typedef typename extends::end_char_t end_char_t;
+    enum { end_char = extends::end_char };
+    typedef typename extends::string_t string_t;
     typedef typename extends::file_t file_t;
-    typedef typename implements::string_t string_t;
-    typedef typename implements::char_t char_t;
-    typedef typename implements::end_char_t end_char_t;
-    enum { end_char = implements::end_char };
+    typedef typename extends::output_to_t output_to_t;
 
     typedef char_t what_t;
     typedef char_t sized_t;
@@ -68,8 +86,8 @@ public:
     }
 
     /// on_set_text_..._literal
-    int (derives::*on_set_text_literal_)(::talas::byte_array_t &array, ::talas::string_t &literal);
-    virtual int on_set_text_literal(::talas::byte_array_t &array, ::talas::string_t &literal) {
+    int (derives::*on_set_text_literal_)(byte_array_t &array, literal_string_t &literal);
+    virtual int on_set_text_literal(byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         if (on_set_text_literal_) {
             err = (this->*on_set_text_literal_)(array, literal);
@@ -78,13 +96,13 @@ public:
         }
         return err;
     }
-    virtual int default_on_set_text_literal(::talas::byte_array_t &array, ::talas::string_t &literal) {
+    virtual int default_on_set_text_literal(byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         err = on_set_text_string_literal(array, literal);
         return err;
     }
     virtual int on_set_text_string_literal
-    (::talas::byte_array_t &array, ::talas::string_t &literal) {
+    (byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         const byte_t* bytes = 0; const char_t* chars = 0; size_t length = 0;
         if ((bytes = (const byte_t*)(chars = literal.has_chars(length)))) {
@@ -93,17 +111,17 @@ public:
         return err;
     }
     virtual int on_set_text_file_literal
-    (::talas::byte_array_t &array, ::talas::string_t &literal) {
+    (byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
         const char_t* chars = 0;
 
         if ((chars = literal.has_chars(length))) {
-            ::talas::io::read::char_file file;
+            file_char_reader_t file;
 
             this->errlln("file.open(\"", chars, "\")...", null);
             if ((file.open(chars))) {
-                ::talas::io::read::char_file::char_t c = 0;
+                typename file_char_reader_t::char_t c = 0;
                 byte_t b = 0;
                 ssize_t count = 0;
     
@@ -135,8 +153,8 @@ public:
     }
 
     /// on_set_hex_..._literal
-    int (derives::*on_set_hex_literal_)(::talas::byte_array_t &array, ::talas::string_t &literal);
-    virtual int on_set_hex_literal(::talas::byte_array_t &array, ::talas::string_t &literal) {
+    int (derives::*on_set_hex_literal_)(byte_array_t &array, literal_string_t &literal);
+    virtual int on_set_hex_literal(byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         if (on_set_hex_literal_) {
             err = (this->*on_set_hex_literal_)(array, literal);
@@ -145,22 +163,22 @@ public:
         }
         return err;
     }
-    virtual int default_on_set_hex_literal(::talas::byte_array_t &array, ::talas::string_t &literal) {
+    virtual int default_on_set_hex_literal(byte_array_t &array, literal_string_t &literal) {
         int err = 0;
         err = on_set_hex_string_literal(array, literal);
         return err;
     }
     virtual int on_set_hex_string_literal
-    (::talas::byte_array_t &array, ::talas::string_t &literal) {
+    (byte_array_t &array, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&array, null);
+        hex_read_to_byte_arrays_t to_arrays(&array, null);
         err = on_set_hex_string_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_file_literal
-    (::talas::byte_array_t &array, ::talas::string_t &literal) {
+    (byte_array_t &array, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&array, null);
+        hex_read_to_byte_arrays_t to_arrays(&array, null);
         err = on_set_hex_file_literals(to_arrays, literal);
         return err;
     }
@@ -181,8 +199,8 @@ public:
     }
 
     /// on_set_hex_..._literal_array
-    int (derives::*on_set_hex_literal_array_)(::talas::byte_arrays_t &arrays, ::talas::string_t &literal);
-    virtual int on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+    int (derives::*on_set_hex_literal_array_)(byte_arrays_t &arrays, literal_string_t &literal);
+    virtual int on_set_hex_literal_array(byte_arrays_t &arrays, literal_string_t &literal) {
         int err = 0;
         if (on_set_hex_literal_array_) {
             err = (this->*on_set_hex_literal_array_)(arrays, literal);
@@ -191,22 +209,22 @@ public:
         }
         return err;
     }
-    virtual int default_on_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+    virtual int default_on_set_hex_literal_array(byte_arrays_t &arrays, literal_string_t &literal) {
         int err = 0;
         err = on_set_hex_string_literal_array(arrays, literal);
         return err;
     }
     virtual int on_set_hex_string_literal_array
-    (::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+    (byte_arrays_t &arrays, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
         const char_t* chars = 0;
 
         if ((chars = literal.has_chars(length))) {
             ssize_t count = 0;
-            ::talas::io::string::reader reader(literal);
-            ::talas::io::hex::read_to_byte_arrays to_arrays(arrays);
-            ::talas::io::hex::reader hex(to_arrays, reader);
+            string_char_reader_t reader(literal);
+            hex_read_to_byte_arrays_t to_arrays(arrays);
+            hex_char_reader_t hex(to_arrays, reader);
 
             if (0 >= (count = hex.read())) {
                 err = on_failed_set_hex_literal_array(arrays, literal);
@@ -215,19 +233,19 @@ public:
         return err;
     }
     virtual int on_set_hex_file_literal_array
-    (::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+    (byte_arrays_t &arrays, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
         const char_t* chars = 0;
 
         if ((chars = literal.has_chars(length))) {
-            ::talas::io::read::char_file file;
+            file_char_reader_t file;
 
             this->errlln("file.open(\"", chars, "\")...", null);
             if ((file.open(chars))) {
                 ssize_t count = 0;
-                ::talas::io::hex::read_to_byte_arrays to_arrays(arrays);
-                ::talas::io::hex::reader hex(to_arrays, file);
+                hex_read_to_byte_arrays_t to_arrays(arrays);
+                hex_char_reader_t hex(to_arrays, file);
     
                 if (0 >= (count = hex.read())) {
                     err = on_failed_set_hex_literal_array(arrays, literal);
@@ -238,7 +256,7 @@ public:
         }
         return err;
     }
-    virtual int on_failed_set_hex_literal_array(::talas::byte_arrays_t &arrays, ::talas::string_t &literal) {
+    virtual int on_failed_set_hex_literal_array(byte_arrays_t &arrays, literal_string_t &literal) {
         int err = 0;
         return err;
     }
@@ -260,9 +278,9 @@ public:
 
     /// ...on_set_hex_literals
     int (derives::*on_set_hex_literals_)
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal);
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal);
     virtual int on_set_hex_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal) {
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal) {
         int err = 0;
         if (on_set_hex_literals_) {
             err = (this->*on_set_hex_literals_)(to_arrays, literal);
@@ -272,21 +290,21 @@ public:
         return err;
     }
     virtual int default_on_set_hex_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal) {
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal) {
         int err = 0;
         err = on_set_hex_string_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_string_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal) {
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
         const char_t* chars = 0;
 
         if ((chars = literal.has_chars(length))) {
             ssize_t count = 0;
-            ::talas::io::string::reader reader(literal);
-            ::talas::io::hex::reader hex(to_arrays, reader);
+            string_char_reader_t reader(literal);
+            hex_char_reader_t hex(to_arrays, reader);
 
             if (0 >= (count = hex.read())) {
                 err = on_failed_set_hex_literals(to_arrays, literal);
@@ -295,18 +313,18 @@ public:
         return err;
     }
     virtual int on_set_hex_file_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal) {
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
         const char_t* chars = 0;
 
         if ((chars = literal.has_chars(length))) {
-            ::talas::io::read::char_file file;
+            file_char_reader_t file;
 
             this->errlln("file.open(\"", chars, "\")...", null);
             if ((file.open(chars))) {
                 ssize_t count = 0;
-                ::talas::io::hex::reader hex(to_arrays, file);
+                hex_char_reader_t hex(to_arrays, file);
     
                 if (0 >= (count = hex.read())) {
                     err = on_failed_set_hex_literals(to_arrays, literal);
@@ -318,14 +336,14 @@ public:
         return err;
     }
     virtual int on_failed_set_hex_literals
-    (::talas::io::hex::read_to_byte_arrays &to_arrays, ::talas::string_t &literal) {
+    (hex_read_to_byte_arrays_t &to_arrays, literal_string_t &literal) {
         int err = 0;
         size_t length = 0;
-        ::talas::io::hex::read_to_byte_arrays::arrays_t &arrays = to_arrays.arrays();
-        ::talas::io::hex::read_to_byte_arrays::array_pointer_t *array_pointers = 0;
+        typename hex_read_to_byte_arrays_t::arrays_t &arrays = to_arrays.arrays();
+        typename hex_read_to_byte_arrays_t::array_pointer_t *array_pointers = 0;
 
         if ((array_pointers = arrays.elements(length))) {
-            ::talas::io::hex::read_to_byte_arrays::array_pointer_t array_pointer = 0;
+            typename hex_read_to_byte_arrays_t::array_pointer_t array_pointer = 0;
 
             for (array_pointer = *array_pointers; length; --length, ++array_pointers) {
                 if ((array_pointer)) {
@@ -353,53 +371,53 @@ public:
 
     /// on_set_hex_literals
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, &a3, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, &a3, &a4, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::byte_array_t &a5, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     byte_array_t &a5, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, &a3, &a4, &a5, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::byte_array_t &a5, ::talas::byte_array_t &a6, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     byte_array_t &a5, byte_array_t &a6, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
     virtual int on_set_hex_literals
-    (::talas::byte_array_t &a1, ::talas::byte_array_t &a2, 
-     ::talas::byte_array_t &a3, ::talas::byte_array_t &a4, 
-     ::talas::byte_array_t &a5, ::talas::byte_array_t &a6, 
-     ::talas::byte_array_t &a7, ::talas::string_t &literal) {
+    (byte_array_t &a1, byte_array_t &a2, 
+     byte_array_t &a3, byte_array_t &a4, 
+     byte_array_t &a5, byte_array_t &a6, 
+     byte_array_t &a7, literal_string_t &literal) {
         int err = 0;
-        ::talas::io::hex::read_to_byte_arrays to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, &a7, null);
+        hex_read_to_byte_arrays_t to_arrays(&a1, &a2, &a3, &a4, &a5, &a6, &a7, null);
         err = on_set_hex_literals(to_arrays, literal);
         return err;
     }
@@ -431,7 +449,7 @@ public:
     }
 
     /// ...output_hex
-    virtual ssize_t output_hex(const ::talas::byte_array_t &array) {
+    virtual ssize_t output_hex(const byte_array_t &array) {
         ssize_t count = 0;
         size_t length = 0;
         const byte_t *bytes = 0;
@@ -442,7 +460,36 @@ public:
         return count;
     }
 
-    /// ...output_x
+    /// ...output_x...
+    ssize_t (derives::*output_x_verbage_sized_)(const char_t* verbage, const void* out, size_t len);
+    virtual ssize_t output_x_verbage_sized(const char_t* verbage, const void* out, size_t len) {
+        ssize_t err = 0;
+        if (output_x_verbage_sized_) {
+            err = (this->*output_x_verbage_sized_)(verbage, out, len);
+        } else {
+            err = default_output_x_verbage_sized(verbage, out, len);
+        }
+        return err;
+    }
+    virtual ssize_t default_output_x_verbage_sized(const char_t* verbage, const void* out, size_t len) {
+        ssize_t count = 0;
+        if ((out) && (len)) {
+            ssize_t amount = 0;
+            bool verbose = this->verbose_output();
+            if ((verbose) && (verbage) && (verbage[0])) {
+                unsigned_to_string size(len);
+                count += ((0 < (amount = this->out(verbage)))?(amount):(0));
+                count += ((0 < (amount = this->out("[")))?(amount):(0));
+                count += ((0 < (amount = this->out(size)))?(amount):(0));
+                count += ((0 < (amount = this->outln("]:\\")))?(amount):(0));
+            }
+            count += ((0 < (amount = this->output_x(out, len)))?(amount):(0));
+            if ((verbose) && (verbage) && (verbage[0])) {
+                count += ((0 < (amount = this->outln()))?(amount):(0));
+            }
+        }
+        return count;
+    }
     ssize_t (derives::*output_x_)(const void* out, size_t len);
     virtual ssize_t output_x(const void* out, size_t len) {
         ssize_t count = 0;
@@ -486,6 +533,7 @@ public:
         return nextln;
     }
 
+protected:
 }; /// class outputt
 typedef outputt<> output;
 
@@ -493,4 +541,4 @@ typedef outputt<> output;
 } /// namespace io
 } /// namespace xos
 
-#endif /// XOS_IO_CRYPTO_OUTPUT_HPP
+#endif /// ndef XOS_IO_CRYPTO_OUTPUT_HPP

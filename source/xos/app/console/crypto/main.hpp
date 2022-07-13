@@ -16,7 +16,7 @@
 ///   File: main.hpp
 ///
 /// Author: $author$
-///   Date: 3/5/2022
+///   Date: 7/2/2022
 ///////////////////////////////////////////////////////////////////////
 #ifndef XOS_APP_CONSOLE_CRYPTO_MAIN_HPP
 #define XOS_APP_CONSOLE_CRYPTO_MAIN_HPP
@@ -62,7 +62,14 @@ protected:
     typedef typename extends::in_reader_t in_reader_t;
     typedef typename extends::out_writer_t out_writer_t;
     typedef typename extends::err_writer_t err_writer_t;
+
     typedef typename extends::output_t output_t;
+    typedef typename extends::literal_string_t literal_string_t;
+    typedef typename extends::byte_array_t byte_array_t;
+    typedef typename extends::byte_arrays_t byte_arrays_t;
+    typedef typename extends::hex_read_to_byte_array_t hex_read_to_byte_array_t;
+    typedef typename extends::hex_read_to_byte_arrays_t hex_read_to_byte_arrays_t;
+
 
     /// ...run
     int (derives::*run_)(int argc, char_t** argv, char_t** env);

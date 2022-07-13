@@ -16,12 +16,12 @@
 ///   File: output.cpp
 ///
 /// Author: $author$
-///   Date: 3/4/2022
+///   Date: 5/18/2022
 ///////////////////////////////////////////////////////////////////////
 #include "xos/io/crypto/output.hpp"
 
 #if !defined(XOS_IO_CRYPTO_OUTPUT_INSTANCE)
-#define XOS_IO_CRYPTO_OUTPUT_INSTANCE
+///#define XOS_IO_CRYPTO_OUTPUT_INSTANCE
 #endif /// !defined(XOS_IO_CRYPTO_OUTPUT_INSTANCE)
 
 namespace xos {

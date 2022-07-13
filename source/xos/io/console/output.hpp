@@ -16,7 +16,7 @@
 ///   File: output.hpp
 ///
 /// Author: $author$
-///   Date: 3/3/2022
+///   Date: 6/18/2022
 ///////////////////////////////////////////////////////////////////////
 #ifndef XOS_IO_CONSOLE_OUTPUT_HPP
 #define XOS_IO_CONSOLE_OUTPUT_HPP
@@ -82,12 +82,42 @@ public:
         return count;
     }
 
+    /// err...
+    virtual ssize_t errfv(const sized_t *format, va_list va) {
+        ssize_t count = 0;
+        file_t f = err_std_err();
+        count = xos::console::outfv(f, format, va);
+        return count;
+    }
+    using implements::err;
+    virtual ssize_t err(const what_t *what, size_t length) {
+        ssize_t count = 0;
+        file_t f = err_std_err();
+        count = xos::console::out(f, what, length);
+        return count;
+    }
+    virtual ssize_t err_flush() {
+        ssize_t count = 0;
+        file_t f = err_std_err();
+        count = xos::console::out_flush(f);
+        return count;
+    }
+
 protected:
+    /// ...out...
     virtual file_t out_std_out() const {
         return std_out();
     }
     virtual file_t std_out() const {
         return (file_t)stdout;
+    }
+
+    /// ...err...
+    virtual file_t err_std_err() const {
+        return std_err();
+    }
+    virtual file_t std_err() const {
+        return (file_t)stderr;
     }
 
 protected:
@@ -98,4 +128,4 @@ typedef outputt<> output;
 } /// namespace io
 } /// namespace xos
 
-#endif /// XOS_IO_CONSOLE_OUTPUT_HPP
+#endif /// ndef XOS_IO_CONSOLE_OUTPUT_HPP
