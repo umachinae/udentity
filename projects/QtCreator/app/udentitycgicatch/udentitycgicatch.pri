@@ -13,70 +13,67 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udentity.pri
+#   File: udentitycgicatch.pri
 #
 # Author: $author$
-#   Date: 5/11/2022
+#   Date: 4/18/2022, 7/11/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udentity
+# generic QtCreator project .pri file for framework udentity executable udentitycgicatch
 ########################################################################
 
 ########################################################################
-# udentity
+# udentitycgicatch
 
-# udentity_exe TARGET
+# udentitycgicatch TARGET
 #
-udentity_exe_TARGET = udentity
+udentitycgicatch_TARGET = udentitycgicatch
 
-# udentity_exe INCLUDEPATH
+# udentitycgicatch INCLUDEPATH
 #
-udentity_exe_INCLUDEPATH += \
+udentitycgicatch_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udentity_exe DEFINES
+# udentitycgicatch DEFINES
 #
-udentity_exe_DEFINES += \
+udentitycgicatch_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udentity_exe OBJECTIVE_HEADERS
+# udentitycgicatch OBJECTIVE_HEADERS
 #
-#udentity_exe_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.hh \
+#udentitycgicatch_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/udentity/cgi/catcher/main.hh \
 
-# udentity_exe OBJECTIVE_SOURCES
+# udentitycgicatch OBJECTIVE_SOURCES
 #
-#udentity_exe_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.mm \
-
-########################################################################
-# udentity_exe HEADERS
-#
-udentity_exe_HEADERS += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main.hpp \
-\
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.hpp \
-
-# udentity_exe SOURCES
-#
-udentity_exe_SOURCES += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.cpp \
+#udentitycgicatch_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/udentity/cgi/catcher/main.mm \
 
 ########################################################################
-# udentity_exe FRAMEWORKS
+# udentitycgicatch HEADERS
 #
-udentity_exe_FRAMEWORKS += \
-$${udentity_rsa_FRAMEWORKS} \
+udentitycgicatch_HEADERS += \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/catcher/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/catcher/main.hpp \
 
-# udentity_exe LIBS
+# udentitycgicatch SOURCES
 #
-udentity_exe_LIBS += \
-$${udentity_rsa_LIBS} \
+udentitycgicatch_SOURCES += \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/catcher/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/catcher/main.cpp \
+
+########################################################################
+# udentitycgicatch FRAMEWORKS
+#
+udentitycgicatch_FRAMEWORKS += \
+$${udentity_FRAMEWORKS} \
+
+# udentitycgicatch LIBS
+#
+udentitycgicatch_LIBS += \
+$${udentity_LIBS} \
 
 ########################################################################
 # NO Qt

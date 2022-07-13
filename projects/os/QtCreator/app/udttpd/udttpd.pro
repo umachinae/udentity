@@ -13,60 +13,70 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: libudentity.pro
+#   File: udttpd.pro
 #
 # Author: $author$
-#   Date: 4/2/2022
+#   Date: 7/13/2022
 #
-# os specific QtCreator project .pro file for framework udentity static library libudentity
+# os specific QtCreator project .pro file for framework udentity executable udttpd
 ########################################################################
 #
-# Debug: udentity/build/os/QtCreator/Debug/lib/libudentity
-# Release: udentity/build/os/QtCreator/Release/lib/libudentity
-# Profile: udentity/build/os/QtCreator/Profile/lib/libudentity
+# Debug: udentity/build/os/QtCreator/Debug/bin/udttpd
+# Release: udentity/build/os/QtCreator/Release/bin/udttpd
+# Profile: udentity/build/os/QtCreator/Profile/bin/udttpd
 #
 include(../../../../../build/QtCreator/udentity.pri)
 include(../../../../QtCreator/udentity.pri)
 include(../../udentity.pri)
-include(../../../../QtCreator/lib/libudentity/libudentity.pri)
+include(../../../../QtCreator/app/udttpd/udttpd.pri)
 
-TARGET = $${libudentity_TARGET}
-TEMPLATE = $${libudentity_TEMPLATE}
-CONFIG += $${libudentity_CONFIG}
+TARGET = $${udttpd_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${libudentity_INCLUDEPATH} \
+$${udttpd_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${libudentity_DEFINES} \
+$${udttpd_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udttpd_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${libudentity_OBJECTIVE_SOURCES} \
+$${udttpd_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${libudentity_HEADERS} \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udttpd_HEADERS} \
+$${udttpd_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${libudentity_SOURCES} \
+$${udttpd_SOURCES} \
+
+########################################################################
+# FRAMEWORKS
+#
+FRAMEWORKS += \
+$${udttpd_FRAMEWORKS} \
+
+# LIBS
+#
+LIBS += \
+$${udttpd_LIBS} \
+$${FRAMEWORKS} \
 
 ########################################################################
 

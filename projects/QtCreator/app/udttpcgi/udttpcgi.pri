@@ -13,69 +13,66 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udentity.pri
+#   File: udttpcgi.pri
 #
 # Author: $author$
-#   Date: 5/11/2022
+#   Date: 6/2/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udentity
+# generic QtCreator project .pri file for framework udentity executable udttpcgi
 ########################################################################
 
 ########################################################################
-# udentity
+# udttpcgi
 
-# udentity_exe TARGET
+# udttpcgi TARGET
 #
-udentity_exe_TARGET = udentity
+udttpcgi_TARGET = udttpcgi
 
-# udentity_exe INCLUDEPATH
+# udttpcgi INCLUDEPATH
 #
-udentity_exe_INCLUDEPATH += \
+udttpcgi_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udentity_exe DEFINES
+# udttpcgi DEFINES
 #
-udentity_exe_DEFINES += \
+udttpcgi_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udentity_exe OBJECTIVE_HEADERS
+# udttpcgi OBJECTIVE_HEADERS
 #
-#udentity_exe_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.hh \
+#udttpcgi_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main.hh \
 
-# udentity_exe OBJECTIVE_SOURCES
+# udttpcgi OBJECTIVE_SOURCES
 #
-#udentity_exe_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.mm \
-
-########################################################################
-# udentity_exe HEADERS
-#
-udentity_exe_HEADERS += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main.hpp \
-\
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.hpp \
-
-# udentity_exe SOURCES
-#
-udentity_exe_SOURCES += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.cpp \
+#udttpcgi_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main.mm \
 
 ########################################################################
-# udentity_exe FRAMEWORKS
+# udttpcgi HEADERS
 #
-udentity_exe_FRAMEWORKS += \
+udttpcgi_HEADERS += \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main.hpp \
+
+# udttpcgi SOURCES
+#
+udttpcgi_SOURCES += \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/network/protocol/udttp/cgi/main.cpp \
+
+########################################################################
+# udttpcgi FRAMEWORKS
+#
+udttpcgi_FRAMEWORKS += \
 $${udentity_rsa_FRAMEWORKS} \
 
-# udentity_exe LIBS
+# udttpcgi LIBS
 #
-udentity_exe_LIBS += \
+udttpcgi_LIBS += \
 $${udentity_rsa_LIBS} \
 
 ########################################################################

@@ -16,7 +16,7 @@
 #   File: udentity.pro
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 5/11/2022
 #
 # os specific QtCreator project .pro file for framework udentity executable udentity
 ########################################################################

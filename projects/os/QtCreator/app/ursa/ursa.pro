@@ -13,60 +13,70 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: libudentity.pro
+#   File: ursa.pro
 #
 # Author: $author$
-#   Date: 4/2/2022
+#   Date: 5/12/2022
 #
-# os specific QtCreator project .pro file for framework udentity static library libudentity
+# os specific QtCreator project .pro file for framework udentity executable ursa
 ########################################################################
 #
-# Debug: udentity/build/os/QtCreator/Debug/lib/libudentity
-# Release: udentity/build/os/QtCreator/Release/lib/libudentity
-# Profile: udentity/build/os/QtCreator/Profile/lib/libudentity
+# Debug: udentity/build/os/QtCreator/Debug/bin/ursa
+# Release: udentity/build/os/QtCreator/Release/bin/ursa
+# Profile: udentity/build/os/QtCreator/Profile/bin/ursa
 #
 include(../../../../../build/QtCreator/udentity.pri)
 include(../../../../QtCreator/udentity.pri)
 include(../../udentity.pri)
-include(../../../../QtCreator/lib/libudentity/libudentity.pri)
+include(../../../../QtCreator/app/ursa/ursa.pri)
 
-TARGET = $${libudentity_TARGET}
-TEMPLATE = $${libudentity_TEMPLATE}
-CONFIG += $${libudentity_CONFIG}
+TARGET = $${ursa_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${libudentity_INCLUDEPATH} \
+$${ursa_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${libudentity_DEFINES} \
+$${ursa_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${ursa_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${libudentity_OBJECTIVE_SOURCES} \
+$${ursa_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${libudentity_HEADERS} \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${ursa_HEADERS} \
+$${ursa_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${libudentity_SOURCES} \
+$${ursa_SOURCES} \
+
+########################################################################
+# FRAMEWORKS
+#
+FRAMEWORKS += \
+$${ursa_FRAMEWORKS} \
+
+# LIBS
+#
+LIBS += \
+$${ursa_LIBS} \
+$${FRAMEWORKS} \
 
 ########################################################################
 

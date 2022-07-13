@@ -13,60 +13,70 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: libudentity.pro
+#   File: udentitycgi.pro
 #
 # Author: $author$
-#   Date: 4/2/2022
+#   Date: 4/18/2022
 #
-# os specific QtCreator project .pro file for framework udentity static library libudentity
+# os specific QtCreator project .pro file for framework udentity executable udentitycgi
 ########################################################################
 #
-# Debug: udentity/build/os/QtCreator/Debug/lib/libudentity
-# Release: udentity/build/os/QtCreator/Release/lib/libudentity
-# Profile: udentity/build/os/QtCreator/Profile/lib/libudentity
+# Debug: udentity/build/os/QtCreator/Debug/bin/udentitycgi
+# Release: udentity/build/os/QtCreator/Release/bin/udentitycgi
+# Profile: udentity/build/os/QtCreator/Profile/bin/udentitycgi
 #
 include(../../../../../build/QtCreator/udentity.pri)
 include(../../../../QtCreator/udentity.pri)
 include(../../udentity.pri)
-include(../../../../QtCreator/lib/libudentity/libudentity.pri)
+include(../../../../QtCreator/app/udentitycgi/udentitycgi.pri)
 
-TARGET = $${libudentity_TARGET}
-TEMPLATE = $${libudentity_TEMPLATE}
-CONFIG += $${libudentity_CONFIG}
+TARGET = $${udentitycgi_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${libudentity_INCLUDEPATH} \
+$${udentitycgi_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${libudentity_DEFINES} \
+$${udentitycgi_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udentitycgi_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${libudentity_OBJECTIVE_SOURCES} \
+$${udentitycgi_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${libudentity_HEADERS} \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udentitycgi_HEADERS} \
+$${udentitycgi_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${libudentity_SOURCES} \
+$${udentitycgi_SOURCES} \
+
+########################################################################
+# FRAMEWORKS
+#
+FRAMEWORKS += \
+$${udentitycgi_FRAMEWORKS} \
+
+# LIBS
+#
+LIBS += \
+$${udentitycgi_LIBS} \
+$${FRAMEWORKS} \
 
 ########################################################################
 

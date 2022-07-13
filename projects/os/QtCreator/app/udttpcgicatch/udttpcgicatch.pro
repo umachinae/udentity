@@ -13,60 +13,70 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: libudentity.pro
+#   File: udttpcgicatch.pro
 #
 # Author: $author$
-#   Date: 4/2/2022
+#   Date: 6/2/2022
 #
-# os specific QtCreator project .pro file for framework udentity static library libudentity
+# os specific QtCreator project .pro file for framework udentity executable udttpcgicatch
 ########################################################################
 #
-# Debug: udentity/build/os/QtCreator/Debug/lib/libudentity
-# Release: udentity/build/os/QtCreator/Release/lib/libudentity
-# Profile: udentity/build/os/QtCreator/Profile/lib/libudentity
+# Debug: udentity/build/os/QtCreator/Debug/bin/udttpcgicatch
+# Release: udentity/build/os/QtCreator/Release/bin/udttpcgicatch
+# Profile: udentity/build/os/QtCreator/Profile/bin/udttpcgicatch
 #
 include(../../../../../build/QtCreator/udentity.pri)
 include(../../../../QtCreator/udentity.pri)
 include(../../udentity.pri)
-include(../../../../QtCreator/lib/libudentity/libudentity.pri)
+include(../../../../QtCreator/app/udttpcgicatch/udttpcgicatch.pri)
 
-TARGET = $${libudentity_TARGET}
-TEMPLATE = $${libudentity_TEMPLATE}
-CONFIG += $${libudentity_CONFIG}
+TARGET = $${udttpcgicatch_TARGET}
 
 ########################################################################
 # INCLUDEPATH
 #
 INCLUDEPATH += \
-$${libudentity_INCLUDEPATH} \
+$${udttpcgicatch_INCLUDEPATH} \
 
 # DEFINES
 # 
 DEFINES += \
-$${libudentity_DEFINES} \
+$${udttpcgicatch_DEFINES} \
 
 ########################################################################
 # OBJECTIVE_HEADERS
 #
 OBJECTIVE_HEADERS += \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udttpcgicatch_OBJECTIVE_HEADERS} \
 
 # OBJECTIVE_SOURCES
 #
 OBJECTIVE_SOURCES += \
-$${libudentity_OBJECTIVE_SOURCES} \
+$${udttpcgicatch_OBJECTIVE_SOURCES} \
 
 ########################################################################
 # HEADERS
 #
 HEADERS += \
-$${libudentity_HEADERS} \
-$${libudentity_OBJECTIVE_HEADERS} \
+$${udttpcgicatch_HEADERS} \
+$${udttpcgicatch_OBJECTIVE_HEADERS} \
 
 # SOURCES
 #
 SOURCES += \
-$${libudentity_SOURCES} \
+$${udttpcgicatch_SOURCES} \
+
+########################################################################
+# FRAMEWORKS
+#
+FRAMEWORKS += \
+$${udttpcgicatch_FRAMEWORKS} \
+
+# LIBS
+#
+LIBS += \
+$${udttpcgicatch_LIBS} \
+$${FRAMEWORKS} \
 
 ########################################################################
 

@@ -16,14 +16,14 @@
 #   File: libudentity.pri
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 4/2/2022, 7/13/2022
 #
 # generic QtCreator project .pri file for framework udentity static library libudentity
 ########################################################################
 
 ########################################################################
 # libudentity
-XOS_LIB_UDENTITY_VERSION_BUILD_DATE = 3/3/2022 #$$system(~/bin/utility/tdate)
+XOS_LIB_UDENTITY_VERSION_BUILD_DATE = 7/13/2022 #$$system(~/bin/utility/tdate)
 
 # libudentity TARGET
 #

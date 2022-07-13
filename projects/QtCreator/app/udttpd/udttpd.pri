@@ -13,69 +13,69 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udentity.pri
+#   File: udttpd.pri
 #
 # Author: $author$
-#   Date: 5/11/2022
+#   Date: 7/13/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udentity
+# generic QtCreator project .pri file for framework udentity executable udttpd
 ########################################################################
 
 ########################################################################
-# udentity
+# udttpd
 
-# udentity_exe TARGET
+# udttpd TARGET
 #
-udentity_exe_TARGET = udentity
+udttpd_TARGET = udttpd
 
-# udentity_exe INCLUDEPATH
+# udttpd INCLUDEPATH
 #
-udentity_exe_INCLUDEPATH += \
+udttpd_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udentity_exe DEFINES
+# udttpd DEFINES
 #
-udentity_exe_DEFINES += \
+udttpd_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udentity_exe OBJECTIVE_HEADERS
+# udttpd OBJECTIVE_HEADERS
 #
-#udentity_exe_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.hh \
+#udttpd_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/udttpd/main.hh \
 
-# udentity_exe OBJECTIVE_SOURCES
+# udttpd OBJECTIVE_SOURCES
 #
-#udentity_exe_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.mm \
+#udttpd_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/udttpd/main.mm \
 
 ########################################################################
-# udentity_exe HEADERS
+# udttpd HEADERS
 #
-udentity_exe_HEADERS += \
+udttpd_HEADERS += \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main.hpp \
 \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.hpp \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.hpp \
 
-# udentity_exe SOURCES
+# udttpd SOURCES
 #
-udentity_exe_SOURCES += \
+udttpd_SOURCES += \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.cpp \
 $${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.cpp \
 
 ########################################################################
-# udentity_exe FRAMEWORKS
+# udttpd FRAMEWORKS
 #
-udentity_exe_FRAMEWORKS += \
+udttpd_FRAMEWORKS += \
 $${udentity_rsa_FRAMEWORKS} \
 
-# udentity_exe LIBS
+# udttpd LIBS
 #
-udentity_exe_LIBS += \
+udttpd_LIBS += \
 $${udentity_rsa_LIBS} \
 
 ########################################################################

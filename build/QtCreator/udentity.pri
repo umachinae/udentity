@@ -16,12 +16,12 @@
 #   File: udentity.pri
 #
 # Author: $author$
-#   Date: 3/3/2022
+#   Date: 4/2/2022, 7/13/2022
 #
 # build specific QtCreator project .pri file for framework udentity
 ########################################################################
 # Repository Depends: vmachinae
-# Depends: ubn;ump;urostra;unadir;ufila;ucrono;ucifra;urete;ustara;umedusade;utalas
+# Depends: ubn;ump;urostra;unadir;ufila;ucrono;ucifra;urete;ustara;utalas;udentify
 
 contains(BUILD_OS,Uname) {
 UNAME = $$system(uname)
@@ -247,28 +247,6 @@ build_ustara_FRAMEWORKS += \
 build_ustara_LIBS += \
 
 ########################################################################
-# umedusade
-#
-# pkg-config --cflags --libs umedusade
-#
-
-# build umedusade INCLUDEPATH
-#
-build_umedusade_INCLUDEPATH += \
-
-# build umedusade DEFINES
-#
-build_umedusade_DEFINES += \
-
-# build umedusade FRAMEWORKS
-#
-build_umedusade_FRAMEWORKS += \
-
-# build umedusade LIBS
-#
-build_umedusade_LIBS += \
-
-########################################################################
 # utalas
 #
 # pkg-config --cflags --libs utalas
@@ -291,13 +269,35 @@ build_utalas_FRAMEWORKS += \
 build_utalas_LIBS += \
 
 ########################################################################
+# udentify
+#
+# pkg-config --cflags --libs udentify
+#
+
+# build udentify INCLUDEPATH
+#
+build_udentify_INCLUDEPATH += \
+
+# build udentify DEFINES
+#
+build_udentify_DEFINES += \
+
+# build udentify FRAMEWORKS
+#
+build_udentify_FRAMEWORKS += \
+
+# build udentify LIBS
+#
+build_udentify_LIBS += \
+
+########################################################################
 # udentity
 
 # build udentity INCLUDEPATH
 #
 build_udentity_INCLUDEPATH += \
+$${build_udentify_INCLUDEPATH} \
 $${build_utalas_INCLUDEPATH} \
-$${build_umedusade_INCLUDEPATH} \
 $${build_ustara_INCLUDEPATH} \
 $${build_urete_INCLUDEPATH} \
 $${build_ucifra_INCLUDEPATH} \
@@ -321,15 +321,15 @@ $${build_ucrono_DEFINES} \
 $${build_ucifra_DEFINES} \
 $${build_urete_DEFINES} \
 $${build_ustara_DEFINES} \
-$${build_umedusade_DEFINES} \
 $${build_utalas_DEFINES} \
+$${build_udentify_DEFINES} \
 
 
 # build udentity FRAMEWORKS
 #
 build_udentity_FRAMEWORKS += \
+$${build_udentify_FRAMEWORKS} \
 $${build_utalas_FRAMEWORKS} \
-$${build_umedusade_FRAMEWORKS} \
 $${build_ustara_FRAMEWORKS} \
 $${build_urete_FRAMEWORKS} \
 $${build_ucifra_FRAMEWORKS} \
@@ -344,8 +344,8 @@ $${build_ubn_FRAMEWORKS} \
 # build udentity LIBS
 #
 build_udentity_LIBS += \
+$${build_udentify_LIBS} \
 $${build_utalas_LIBS} \
-$${build_umedusade_LIBS} \
 $${build_ustara_LIBS} \
 $${build_urete_LIBS} \
 $${build_ucifra_LIBS} \

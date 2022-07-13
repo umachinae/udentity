@@ -13,72 +13,71 @@
 # or otherwise) arising in any way out of the use of this software,
 # even if advised of the possibility of such damage.
 #
-#   File: udentity.pri
+#   File: udtpd.pri
 #
 # Author: $author$
-#   Date: 5/11/2022
+#   Date: 5/13/2022, 7/11/2022
 #
-# generic QtCreator project .pri file for framework udentity executable udentity
+# generic QtCreator project .pri file for framework udentity executable udtpd
 ########################################################################
 
 ########################################################################
-# udentity
+# udtpd
 
-# udentity_exe TARGET
+# udtpd TARGET
 #
-udentity_exe_TARGET = udentity
+udtpd_TARGET = udtpd
 
-# udentity_exe INCLUDEPATH
+# udtpd INCLUDEPATH
 #
-udentity_exe_INCLUDEPATH += \
+udtpd_INCLUDEPATH += \
 $${udentity_INCLUDEPATH} \
 
-# udentity_exe DEFINES
+# udtpd DEFINES
 #
-udentity_exe_DEFINES += \
+udtpd_DEFINES += \
 $${udentity_DEFINES} \
 DEFAULT_LOGGING_LEVELS_ERROR \
 XOS_CONSOLE_MAIN_MAIN \
 
 ########################################################################
-# udentity_exe OBJECTIVE_HEADERS
+# udtpd OBJECTIVE_HEADERS
 #
-#udentity_exe_OBJECTIVE_HEADERS += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.hh \
+#udtpd_OBJECTIVE_HEADERS += \
+#$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.hh \
 
-# udentity_exe OBJECTIVE_SOURCES
+# udtpd OBJECTIVE_SOURCES
 #
-#udentity_exe_OBJECTIVE_SOURCES += \
-#$${UDENTITY_SRC}/xos/app/console/udentity/version/main.mm \
+#udtpd_OBJECTIVE_SOURCES += \
+#$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.mm \
 
 ########################################################################
-# udentity_exe HEADERS
+# udtpd HEADERS
 #
-udentity_exe_HEADERS += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/base/main.hpp \
+udtpd_HEADERS += \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/base/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/base/main.hpp \
 \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.hpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.hpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.hpp \
 
-# udentity_exe SOURCES
+# udtpd SOURCES
 #
-udentity_exe_SOURCES += \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main_opt.cpp \
-$${UDENTITY_SRC}/xos/app/console/network/sockets/protocol/udttp/server/main.cpp \
+udtpd_SOURCES += \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main_opt.cpp \
+$${UDENTITY_SRC}/xos/app/console/protocol/udtp/server/main.cpp \
 
 ########################################################################
-# udentity_exe FRAMEWORKS
+# udtpd FRAMEWORKS
 #
-udentity_exe_FRAMEWORKS += \
+udtpd_FRAMEWORKS += \
 $${udentity_rsa_FRAMEWORKS} \
 
-# udentity_exe LIBS
+# udtpd LIBS
 #
-udentity_exe_LIBS += \
+udtpd_LIBS += \
 $${udentity_rsa_LIBS} \
 
 ########################################################################
 # NO Qt
 QT -= gui core
-
